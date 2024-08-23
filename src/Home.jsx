@@ -1,14 +1,24 @@
+import { Link, Element } from 'react-scroll'
 import ElderlinkLogo from './assets/elderlink-logo.png'
+import About from './About'
 
 const Home = () => {
 	return (
 		<div className="font-inter h-screen">
-			<section className="min-h-screen flex flex-col">
+			<section id="home" className="min-h-screen flex flex-col">
 				<nav className="bg-[#f5f5fa] flex justify-between items-center px-20 py-5">
 					<img className="w-40 h-20" src={ElderlinkLogo} alt="Elderlink Logo" />
 					<ul className="flex text-[#1F1F29] font-bold gap-20">
-						<li>Home</li>
-						<li>About</li>
+						<li>
+							<Link to="home" smooth={true} duration={500}>
+								Home
+							</Link>
+						</li>
+						<li>
+							<Link to="about" smooth={true} duration={500}>
+								About
+							</Link>
+						</li>
 						<li>Features</li>
 						<li>News</li>
 						<li>Events</li>
@@ -18,18 +28,26 @@ const Home = () => {
 						Contact Us
 					</button>
 				</nav>
-				<div className="relative flex-1 w-full flex items-center justify-center">
+				<Element
+					name="home"
+					className="relative flex-1 w-full flex justify-center flex-col items-center gap-5"
+				>
 					{/* Background Image */}
-					<div className="absolute inset-0 bg-cover bg-center bg-custom-bg opacity-10"></div>
+					<div className="absolute inset-0 mix-blend-overlay bg-cover bg-center bg-custom-bg opacity-[0.07]"></div>
 					{/* Gradient Overlay */}
 					<div className="absolute inset-0 mix-blend-overlay bg-gradient-to-b from-[#F5F5FA] to-[#C1F3FF]"></div>
 					{/* Content */}
-					<h1 className="relative text-center text-9xl font-bold text-[#1F1F29]">
+					<h1 className="relative text-center text-8xl font-bold text-[#1F1F29]">
 						<span className="text-[#219EBC]">Empowering</span> the Filipino <br /> Senior Citizen
 						Community
 					</h1>
-				</div>
+					<p className="relative text-[#767171] text-[30px] text-center">
+						Empowering communities by linking generations through enhanced <br /> connectivity and
+						community engagement.
+					</p>
+				</Element>
 			</section>
+			<About />
 		</div>
 	)
 }
