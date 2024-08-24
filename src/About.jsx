@@ -4,9 +4,9 @@ import Image3 from './assets/img-3.png'
 
 const About = () => {
 	return (
-		<section id="about" className="min-h-screen flex mt-28 ml-56">
+		<section id="about" className="flex pt-28 pl-56 pb-28">
 			<div className="w-[50%] flex flex-col gap-5">
-				<h1 className="self-start text-center text-8xl font-bold text-[#1F1F29] ">
+				<h1 className="self-start text-center text-7xl font-bold text-[#1F1F29] ">
 					About <span className="text-[#219EBC]">Elderlink</span>
 				</h1>
 				<p className="text-[32px] text-justify w-[700px]">
