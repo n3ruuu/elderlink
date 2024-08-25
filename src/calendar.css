@@ -1,0 +1,46 @@
+/* calendar.css */
+
+.fc {
+	font-family: Inter, sans-serif; /* Ensure proper font family */
+}
+
+.fc .fc-daygrid-day-frame,
+.fc .fc-scrollgrid-liquid {
+	border: none;
+}
+
+.fc .fc-toolbar-title {
+	color: #219ebc;
+	text-transform: uppercase; /* Convert text to uppercase */
+	font-weight: bold; /* Optional: Make text bold */
+	font-size: 2rem;
+}
+
+.fc .fc-daygrid-day {
+	border: none;
+	background: transparent;
+}
+
+.fc .fc-col-header-cell-cushion {
+	color: #666666;
+	font-weight: lighter;
+	font-size: 1.2rem;
+	padding: 8px;
+}
+
+.fc .fc-daygrid-day-top {
+	border: none;
+	background: transparent;
+}
+
+.fc .fc-daygrid-day-content {
+	border: none;
+}
+
+.fc-daygrid-day-number {
+	color: #333333;
+	text-align: center; /* Center the text */
+	font-size: 1.2rem;
+	display: inline-block; /* Ensures proper alignment */
+	width: 100%; /* Ensures it takes full width for centering */
+}

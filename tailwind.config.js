@@ -5,6 +5,7 @@ export default {
 		extend: {
 			backgroundImage: {
 				'custom-bg': "url('./assets/home-bg.png')",
+				'events-bg': "url('./assets/events-bg.png')",
 			},
 		},
 		fontFamily: {
