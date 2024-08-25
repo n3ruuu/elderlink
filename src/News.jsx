@@ -24,7 +24,7 @@ const News = () => {
 			id="news"
 			className="relative w-full max-w-[1500px] mx-auto overflow-hidden rounded-lg"
 		>
-			<h1 className="text-7xl font-bold text-[#219EBC] text-left">Latest News</h1>
+			<h1 className="text-6xl font-bold text-[#219EBC] text-left">Latest News</h1>
 			<div className="pt-16 pb-16 flex relative">
 				<div className="overflow-hidden w-full">
 					<div

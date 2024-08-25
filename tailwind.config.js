@@ -6,6 +6,7 @@ export default {
 			backgroundImage: {
 				'custom-bg': "url('./assets/home-bg.png')",
 				'events-bg': "url('./assets/events-bg.png')",
+				'contact-bg': 'url(./assets/contact-bg.png)',
 			},
 		},
 		fontFamily: {

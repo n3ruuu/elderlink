@@ -14,8 +14,8 @@ const splitDate = (formattedDate) => {
 
 const Events = () => {
 	return (
-		<section className="relative ml-48 mt-16 mb-16">
-			<div className="relative p-16 w-[1000px] border-2 border-[#219EBC] rounded-lg overflow-hidden">
+		<section id="event" className="relative ml-48 mt-16 mb-16">
+			<div className="relative p-16 w-[1000px] border-[#219EBC] rounded-lg overflow-hidden">
 				{/* Background Image */}
 				<div className="absolute inset-0 bg-cover bg-center bg-events-bg opacity-20"></div>
 				{/* Gradient Overlay */}
@@ -28,7 +28,7 @@ const Events = () => {
 						const { month, day } = splitDate(formattedDate)
 
 						return (
-							<div key={index} className="mb-4 p-4 border-b border-gray-200">
+							<div key={index} className="mb-4 p-4 border-b-2 w-[90%] border-gray-200">
 								<p className="text-xl text-[#F5F5FA] flex gap-5">
 									<span className="font-light text-[20px]">{month}</span>{' '}
 									<span className="text-[40px] w-12">{day}</span>

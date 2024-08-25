@@ -27,8 +27,21 @@ const Home = () => {
 							News
 						</Link>
 					</li>
-					<li>Events</li>
-					<li>Contact</li>
+					<li>
+						<Link to="event" smooth={true} duration={500}>
+							Events
+						</Link>
+					</li>
+					<li>
+						<Link to="forms" smooth={true} duration={500}>
+							Forms
+						</Link>
+					</li>
+					<li>
+						<Link to="contact" smooth={true} duration={500}>
+							Contact
+						</Link>
+					</li>
 				</ul>
 				<button className="bg-[#219EBC] text-[#f5f5fa] font-bold w-36 h-10 rounded-lg">
 					Contact Us
