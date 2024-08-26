@@ -6,7 +6,7 @@
 		"source": "CDN Digital",
 		"date": "August 20, 2024",
 		"link": "https://cebudailynews.inquirer.net/590826/cebu-city-eligible-senior-citizens-to-get-cash-aid-on-sept-7",
-		"image": "elderlink/src/assets/news-images/news1.jpg"
+		"image": "src/assets/news-images/news1.jpg"
 	},
 	{
 		"id": 2,
@@ -15,7 +15,7 @@
 		"source": "Rappler",
 		"date": "February 26, 2024",
 		"link": "https://www.rappler.com/philippines/marcos-jr-signs-law-expanding-centenarians-act-2024/",
-		"image": "elderlink/src/assets/news-images/news2.jpg"
+		"image": "src/assets/news-images/news2.jpg"
 	},
 	{
 		"id": 3,
@@ -24,7 +24,7 @@
 		"source": "The Philippine Star",
 		"date": "March 20, 2024",
 		"link": "https://www.philstar.com/headlines/2024/03/20/2341866/bill-ensuring-employability-seniors-gets-house-nod",
-		"image": "elderlink/src/assets/news-images/news3.jpg"
+		"image": "src/assets/news-images/news3.jpg"
 	},
 	{
 		"id": 4,
@@ -33,7 +33,7 @@
 		"source": "CDN Digital",
 		"date": "August 24, 2024",
 		"link": "https://cebudailynews.inquirer.net/591522/osca-to-investigate-fake-news-on-senior-id-replacement#ixzz8jrLk77HL",
-		"image": "elderlink/src/assets/news-images/news4.jpg"
+		"image": "src/assets/news-images/news4.jpg"
 	},
 	{
 		"id": 5,
@@ -42,6 +42,6 @@
 		"source": "The Freeman",
 		"date": "August 22, 2024",
 		"link": "https://www.philstar.com/the-freeman/cebu-news/2024/08/22/2379727/osca-no-need-new-senior-ids-get-aid",
-		"image": "elderlink/src/assets/news-images/news5.jpg"
+		"image": "src/assets/news-images/news5.jpg"
 	}
 ]
