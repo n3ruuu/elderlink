@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 const Forms = () => {
 	return (
-		<section id="forms" className="relative w-full p-8 m-36">
+		<section id="forms" className="relative p-8 m-36">
 			<h1 className="text-6xl pb-8 font-bold text-[#219EBC] mb-8 border-b-2 w-[85%] border-b-[#7671714D]">
 				Application Forms
 			</h1>
