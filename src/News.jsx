@@ -1,10 +1,29 @@
 import { useState, useEffect } from 'react'
-import newsData from './data/news.json' // Adjust the path as needed
+import moment from 'moment'
+import NewsModal from './NewsModal'
 
 const News = () => {
+	const [newsData, setNewsData] = useState([])
 	const [currentSlide, setCurrentSlide] = useState(0)
-	const slidesToShow = 3 // Number of slides to show at once
-	const totalSlides = newsData.length - slidesToShow + 1 // Adjust total slides to allow the last card to be visible
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [selectedNews, setSelectedNews] = useState(null)
+
+	const slidesToShow = 3
+	const totalSlides = newsData.length - slidesToShow + 1
+
+	const fetchNewsData = async () => {
+		try {
+			const response = await fetch('http://localhost:5000/news')
+			const data = await response.json()
+			setNewsData(data)
+		} catch (error) {
+			console.error('Error fetching news data:', error)
+		}
+	}
+
+	useEffect(() => {
+		fetchNewsData()
+	}, [])
 
 	const nextSlide = () => {
 		setCurrentSlide((prevSlide) => (prevSlide === totalSlides - 1 ? 0 : prevSlide + 1))
@@ -15,9 +34,19 @@ const News = () => {
 	}
 
 	useEffect(() => {
-		const interval = setInterval(nextSlide, 3000) // Auto-slide every 3 seconds
-		return () => clearInterval(interval) // Cleanup on unmount
+		const interval = setInterval(nextSlide, 3000)
+		return () => clearInterval(interval)
 	}, [currentSlide])
+
+	const openModal = (news) => {
+		setSelectedNews(news)
+		setIsModalOpen(true)
+	}
+
+	const closeModal = () => {
+		setIsModalOpen(false)
+		setSelectedNews(null)
+	}
 
 	return (
 		<section
@@ -34,23 +63,24 @@ const News = () => {
 						{newsData.map((news) => (
 							<div
 								key={news.id}
-								className="w-[calc(33.3333%-1rem)] rounded-2xl flex-shrink-0 h-[500px] bg-cover bg-center"
-								style={{ backgroundImage: `url(${news.image})` }}
-								onClick={() => window.open(news.link, '_blank')}
+								className="w-[calc(33.3333%-1rem)] cursor-pointer rounded-2xl flex-shrink-0 h-[500px] bg-cover bg-center"
+								style={{ backgroundImage: `url(http://localhost:5000/uploads/${news.image})` }}
+								onClick={() => openModal(news)} // Open the modal when clicked
 							>
 								<div className="p-12 flex items-end h-full bg-gradient-to-b from-[#C1F3FF]/0 to-[#219EBC]/75 rounded-xl text-white">
 									<div>
 										<h2 className="text-2xl font-semibold">{news.headline}</h2>
-										<p className="text-sm font-light">
+										<p className="text-xl font-light">
 											{news.author} - {news.source}
 										</p>
-										<p className="text-sm">{news.date}</p>
+										<p className="text-xl">{moment(news.date).format('MMMM Do YYYY, h:mm A')}</p>
 									</div>
 								</div>
 							</div>
 						))}
 					</div>
 				</div>
+
 				{/* Navigation Arrows */}
 				<button
 					onClick={prevSlide}
@@ -65,6 +95,9 @@ const News = () => {
 					&#8250;
 				</button>
 			</div>
+
+			{/* News Modal */}
+			<NewsModal isOpen={isModalOpen} newsData={selectedNews} closeModal={closeModal} />
 		</section>
 	)
 }

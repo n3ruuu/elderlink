@@ -4,47 +4,68 @@ import ElderlinkLogo from './assets/elderlink-logo.png'
 const Home = () => {
 	return (
 		<section id="home" className="min-h-screen flex flex-col">
-			<nav className="bg-[#f5f5fa] flex justify-between items-center px-20 py-5">
-				<img className="h-[100px]" src={ElderlinkLogo} alt="Elderlink Logo" />
-				<ul className="flex text-[#1F1F29] font-bold gap-20">
+			<nav className="bg-[#f5f5fa] flex justify-between gap-[100px] items-center px-20 py-5">
+				<img
+					className="h-[100px] transition-transform duration-300 transform hover:scale-105 cursor-pointer"
+					src={ElderlinkLogo}
+					alt="Elderlink Logo"
+				/>
+				<ul className="flex text-[#1F1F29] font-bold text-[24px] gap-20">
 					<li>
-						<Link to="home" smooth={true} duration={500}>
+						<Link
+							to="home"
+							smooth={true}
+							duration={500}
+							className="transition-colors duration-300 hover:text-[#219EBC] cursor-pointer"
+						>
 							Home
 						</Link>
 					</li>
 					<li>
-						<Link to="about" smooth={true} duration={500}>
+						<Link
+							to="about"
+							smooth={true}
+							duration={500}
+							className="transition-colors duration-300 hover:text-[#219EBC] cursor-pointer"
+						>
 							About
 						</Link>
 					</li>
 					<li>
-						<Link to="features" smooth={true} duration={500}>
-							Features
-						</Link>
-					</li>
-					<li>
-						<Link to="news" smooth={true} duration={500}>
+						<Link
+							to="news"
+							smooth={true}
+							duration={500}
+							className="transition-colors duration-300 hover:text-[#219EBC] cursor-pointer"
+						>
 							News
 						</Link>
 					</li>
 					<li>
-						<Link to="event" smooth={true} duration={500}>
+						<Link
+							to="event"
+							smooth={true}
+							duration={500}
+							className="transition-colors duration-300 hover:text-[#219EBC] cursor-pointer"
+						>
 							Events
 						</Link>
 					</li>
 					<li>
-						<Link to="forms" smooth={true} duration={500}>
+						<Link
+							to="forms"
+							smooth={true}
+							duration={500}
+							className="transition-colors duration-300 hover:text-[#219EBC] cursor-pointer"
+						>
 							Forms
 						</Link>
 					</li>
-					<li>
-						<Link to="contact" smooth={true} duration={500}>
-							Contact
-						</Link>
-					</li>
 				</ul>
-				<button className="bg-[#219EBC] text-[#f5f5fa] font-bold w-36 h-10 rounded-lg">
-					Contact Us
+				<button className="bg-[#219EBC] text-[#f5f5fa] text-[24px] font-bold w-48 h-16 rounded-lg transition-all duration-300 hover:bg-[#1B7D98] cursor-pointer">
+					<Link to="contact" smooth={true} duration={500}>
+						Contact Us
+					</Link>
 				</button>
 			</nav>
 			<Element

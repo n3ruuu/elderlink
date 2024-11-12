@@ -1,6 +1,6 @@
 const Contact = () => {
 	return (
-		<section className="relative p-16 flex flex-col items-center">
+		<section id="contact" className="relative p-16 flex flex-col items-center">
 			{/* Background Image Overlay */}
 			<div className="absolute inset-0 bg-cover bg-center bg-contact-bg opacity-30"></div>
 			{/* Color Overlay */}
