@@ -1,24 +1,41 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Modal from './Modal' // Assuming Modal is in the same directory
+import axios from 'axios'
 
 const Forms = () => {
-	const [selectedFile, setSelectedFile] = useState(null)
+	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [formsData, setFormsData] = useState([])
 
-	const handleFileChange = (event) => {
-		const file = event.target.files[0]
-		setSelectedFile(file)
-		if (file) {
-			alert(`File selected: ${file.name}`)
-		}
+	const openModal = () => {
+		setIsModalOpen(true)
 	}
 
-	const handleSubmit = () => {
-		if (selectedFile) {
-			alert(`Form submitted with file: ${selectedFile.name}`)
-		} else {
-			alert('No file selected.')
+	const closeModal = () => {
+		setIsModalOpen(false)
+	}
+
+	const fetchForms = async () => {
+		try {
+			const response = await axios.get('http://localhost:5000/forms')
+			setFormsData(response.data)
+		} catch (error) {
+			console.error('Error fetching data:', error)
 		}
 	}
+	// Fetch data from the server
+	useEffect(() => {
+		fetchForms()
+	}, [])
+
+	// Group forms by category
+	const groupedForms = formsData.reduce((acc, form) => {
+		if (!acc[form.category]) {
+			acc[form.category] = []
+		}
+		acc[form.category].push(form)
+		return acc
+	}, {})
 
 	return (
 		<section id="forms" className="relative p-8 m-36 text-[24px]">
@@ -26,81 +43,38 @@ const Forms = () => {
 				Application Forms
 			</h1>
 
-			{/* OSCA Forms */}
-			<div className="mb-12">
-				<h3 className="text-3xl font-semibold text-[#023047] mb-4">
-					Office of the Senior Citizens Affairs (OSCA) Forms
-				</h3>
-				<ul className="list-disc pl-8 text-[#219EBC]">
-					<li className="cursor-pointer">
-						<a
-							href="http://localhost:5000/uploads/1731356355348.pdf"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							OSCA Registration Form
-						</a>
-					</li>
-
-					<li className="cursor-pointer">
-						<a
-							href="http://localhost:5000/uploads/1731174245205.pdf"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Death Benefit Form
-						</a>
-					</li>
-
-					<li className="cursor-pointer">Social Pension Intake Application Form</li>
-					<li className="cursor-pointer">Citizen’s Charter Application Form</li>
-					<li className="cursor-pointer">Replacement Application Form</li>
-				</ul>
-			</div>
-
-			{/* Senior Citizen Services and Support Forms */}
-			<div className="mb-12">
-				<h3 className="text-3xl font-semibold text-[#023047] mb-4">
-					Senior Citizen Services and Support Forms
-				</h3>
-				<ul className="list-disc pl-8 text-[#219EBC]">
-					<li className="cursor-pointer">Senior Citizen's Discount Card Form</li>
-					<li className="cursor-pointer">Healthcare Assistance Application Form</li>
-					<li className="cursor-pointer">Financial Aid Application Form</li>
-					<li className="cursor-pointer">Home Care Services Application Form</li>
-					<li className="cursor-pointer">Transportation Assistance Application Form</li>
-					<li className="cursor-pointer">Social Welfare Programs Enrollment Form</li>
-					<li className="cursor-pointer">Housing Assistance Application Form</li>
-					<li className="cursor-pointer">Emergency Assistance Request Form</li>
-				</ul>
-			</div>
-
-			{/* Legal and Justice Forms */}
-			<div>
-				<h3 className="text-3xl font-semibold text-[#023047] mb-4">Legal and Justice Forms</h3>
-				<ul className="list-disc pl-8 text-[#219EBC]">
-					<li className="cursor-pointer">Legal Aid Request Form</li>
-					<li className="cursor-pointer">Court Mediation Request Form</li>
-					<li className="cursor-pointer">Legal Documentation Assistance Form</li>
-					<li className="cursor-pointer">Victim Assistance Application Form</li>
-					<li className="cursor-pointer">Legal Rights Education Seminar Registration Form</li>
-				</ul>
-			</div>
-
-			{/* File Upload Section */}
-			<div className="mt-12">
-				<input type="file" onChange={handleFileChange} />
-			</div>
+			{/* Dynamically render categories and forms */}
+			{Object.entries(groupedForms).map(([category, forms]) => (
+				<div key={category} className="mb-12">
+					<h3 className="text-3xl font-semibold text-[#023047] mb-4">{category}</h3>
+					<ul className="list-disc pl-8 text-[#219EBC]">
+						{forms.map((form) => (
+							<li key={form.id} className="cursor-pointer">
+								<a
+									href={`http://localhost:5000/${form.pdfLink}`}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{form.title}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
 
 			{/* Submit Form Button */}
 			<div className="mt-6">
 				<button
-					onClick={handleSubmit}
 					className="text-[#F5F5FA] text-center bg-[#219EBC] px-8 text-[24px] py-2 rounded-lg hover:bg-[#1A7F8C]"
+					onClick={openModal}
 				>
 					Submit Form
 				</button>
 			</div>
+
+			{/* Modal Component */}
+			{isModalOpen && <Modal closeModal={closeModal} formsData={formsData} />}
 		</section>
 	)
 }

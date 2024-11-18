@@ -1,0 +1,189 @@
+/* Home Section */
+#home {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Navigation */
+.home-nav {
+	background-color: #f5f5fa;
+	display: flex;
+	justify-content: space-between;
+	gap: 100px;
+	align-items: center;
+	padding: 20px 80px;
+	position: relative;
+}
+
+/* Hamburger Menu Button */
+.hamburger-menu {
+	display: none; /* Hidden by default */
+	position: absolute;
+	left: 20px;
+	top: 20px;
+}
+
+.hamburger-btn {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.bar {
+	width: 25px;
+	height: 3px;
+	background-color: #219ebc;
+	border-radius: 3px;
+}
+
+/* Logo */
+.logo {
+	height: 100px;
+	transition: transform 0.3s;
+}
+
+.logo:hover {
+	transform: scale(1.05);
+	cursor: pointer;
+}
+
+/* Navigation Links */
+.nav-links {
+	display: flex;
+	color: #1f1f29;
+	font-weight: bold;
+	font-size: 32px;
+	gap: 64px;
+}
+
+.nav-link {
+	transition: color 0.3s;
+	cursor: pointer;
+}
+
+.nav-link:hover {
+	color: #219ebc;
+}
+
+.contact-button {
+	background-color: #219ebc;
+	color: #f5f5fa;
+	font-size: 24px;
+	font-weight: bold;
+	width: 192px;
+	height: 64px;
+	border-radius: 16px;
+	transition: background-color 0.3s;
+	cursor: pointer;
+}
+
+.contact-button:hover {
+	background-color: #1b7d98;
+}
+
+/* Home Section */
+.home-section {
+	position: relative;
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.home-heading {
+	position: relative;
+	text-align: center;
+	font-size: 7rem; /* Corresponding to text-8xl */
+	font-weight: bold;
+	color: #1f1f29;
+	line-height: 1.2;
+}
+
+.highlight-text {
+	color: #219ebc;
+}
+
+.home-description {
+	position: relative;
+	color: #767171;
+	font-size: 2.2rem;
+	text-align: center;
+}
+
+/* iPhone XR and similar devices */
+@media (max-width: 414px) {
+	/* Home Section */
+	#home {
+		min-height: auto;
+	}
+
+	/* Navigation */
+	.home-nav {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 10px 20px;
+	}
+
+	.logo {
+		height: 80px;
+	}
+
+	.nav-links {
+		display: none; /* Hidden by default */
+		flex-direction: column;
+		font-size: 16px; /* Adjust font size for smaller screens */
+		gap: 12px;
+		align-items: flex-start;
+	}
+
+	.nav-link {
+		font-size: 16px;
+	}
+
+	.contact-button {
+		width: 100%;
+		height: 48px;
+		font-size: 18px;
+		border-radius: 10px;
+	}
+
+	/* Home Section */
+	.home-section {
+		padding: 20px;
+	}
+
+	.home-heading {
+		font-size: 3rem;
+		width: 90%;
+		text-align: left;
+		font-weight: bolder; /* Slightly smaller font for iPhone XR */
+	}
+
+	.home-description {
+		text-align: justify;
+		width: 90%;
+		padding-right: 24px;
+		font-size: 1.2rem;
+	}
+
+	/* Show hamburger menu in mobile */
+	.hamburger-menu {
+		display: block; /* Show hamburger button in mobile */
+	}
+
+	/* Center logo in mobile */
+	.logo-container {
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+/* For toggling menu visibility on hamburger click (You can implement this with JavaScript for toggle effect) */
+.hamburger-menu.active + .nav-links {
+	display: flex;
+}
