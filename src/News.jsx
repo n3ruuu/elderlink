@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment'
 import NewsModal from './NewsModal'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const News = () => {
 	const [newsData, setNewsData] = useState([])
 	const [currentSlide, setCurrentSlide] = useState(0)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [selectedNews, setSelectedNews] = useState(null)
+	const isMobile = useMediaQuery('(max-width: 414px)')
 
-	const slidesToShow = 3
+	const slidesToShow = isMobile ? 1 : 3 // 1 slide for mobile, 3 for desktop
 	const totalSlides = newsData.length - slidesToShow + 1
 
 	const fetchNewsData = async () => {
@@ -53,7 +55,13 @@ const News = () => {
 			id="news"
 			className="relative w-full max-w-[1500px] mx-auto overflow-hidden rounded-lg"
 		>
-			<h1 className="text-6xl font-bold text-[#219EBC] text-left">Latest News</h1>
+			<h1
+				className={` ${
+					isMobile ? 'font-extrabold text-5xl text-center' : 'font-bold text-6xl'
+				} text-[#219EBC] text-left`}
+			>
+				Latest News
+			</h1>
 			<div className="pt-16 pb-16 flex relative">
 				<div className="overflow-hidden w-full">
 					<div
@@ -63,7 +71,9 @@ const News = () => {
 						{newsData.map((news) => (
 							<div
 								key={news.id}
-								className="w-[calc(33.3333%-1rem)] cursor-pointer rounded-2xl flex-shrink-0 h-[500px] bg-cover bg-center"
+								className={`${
+									isMobile ? 'w-[70%]' : 'w-[calc(33.3333%-1rem)]'
+								} cursor-pointer rounded-2xl flex-shrink-0 h-[500px] bg-cover bg-center`}
 								style={{ backgroundImage: `url(http://localhost:5000/uploads/${news.image})` }}
 								onClick={() => openModal(news)} // Open the modal when clicked
 							>
@@ -82,18 +92,22 @@ const News = () => {
 				</div>
 
 				{/* Navigation Arrows */}
-				<button
-					onClick={prevSlide}
-					className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-none text-[#F5F5FA] text-8xl font-extralight"
-				>
-					&#8249;
-				</button>
-				<button
-					onClick={nextSlide}
-					className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-none text-[#F5F5FA] text-8xl font-extralight"
-				>
-					&#8250;
-				</button>
+				{!isMobile && (
+					<>
+						<button
+							onClick={prevSlide}
+							className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-none text-[#F5F5FA] text-8xl font-extralight"
+						>
+							&#8249;
+						</button>
+						<button
+							onClick={nextSlide}
+							className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-none text-[#F5F5FA] text-8xl font-extralight"
+						>
+							&#8250;
+						</button>
+					</>
+				)}
 			</div>
 
 			{/* News Modal */}

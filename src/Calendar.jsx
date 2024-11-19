@@ -5,9 +5,11 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import axios from 'axios' // Import axios for API calls
 import './calendar.css' // Import the external CSS file
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Calendar = () => {
 	const [events, setEvents] = useState([])
+	const isMobile = useMediaQuery('(max-width: 414px)')
 
 	useEffect(() => {
 		fetchEvents() // Call the function to fetch events
@@ -39,7 +41,13 @@ const Calendar = () => {
 	}
 
 	return (
-		<div className="w-[750px] absolute top-10 right-36">
+		<div
+			className={`${
+				isMobile
+					? 'absolute top-20 left-1/2 transform -translate-x-1/2 mb-4 max-w-[90%]'
+					: 'absolute top-10 right-36 w-full max-w-[750px]'
+			} `}
+		>
 			<div className="max-w-[750px] h-[600px] p-12 border-2 border-[#219EBC] rounded-2xl bg-white">
 				<FullCalendar
 					plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

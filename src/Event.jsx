@@ -2,18 +2,11 @@ import { useState, useEffect } from 'react'
 import moment from 'moment'
 import Calendar from './Calendar'
 import axios from 'axios'
-
-const formatDate = (dateString) => {
-	// Use Moment.js to format the date
-	return moment(dateString).format('MMM D').toUpperCase() // 'MMM D' will give you month and day like 'Nov 5'
-}
-
-const splitDate = (formattedDate) => {
-	const [month, day] = formattedDate.split(' ')
-	return { month, day }
-}
+import './calendar.css'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const Events = () => {
+	const isMobile = useMediaQuery('(max-width: 414px)')
 	const [eventsData, setEventsData] = useState([])
 
 	useEffect(() => {
@@ -24,10 +17,9 @@ const Events = () => {
 		try {
 			const response = await axios.get('http://localhost:5000/events')
 			const sortedEvents = response.data.sort((a, b) => {
-				// Convert event dates to moment objects and compare
 				const dateA = moment(a.date)
 				const dateB = moment(b.date)
-				return dateA.isBefore(dateB) ? -1 : 1 // Sort by ascending date
+				return dateA.isBefore(dateB) ? -1 : 1
 			})
 			setEventsData(sortedEvents)
 		} catch (error) {
@@ -35,27 +27,66 @@ const Events = () => {
 		}
 	}
 
+	const formatDate = (dateString) => {
+		return moment(dateString).format('MMM D').toUpperCase() // 'MMM D' format
+	}
+
+	const splitDate = (formattedDate) => {
+		const [month, day] = formattedDate.split(' ')
+		return { month, day }
+	}
+
 	return (
-		<section id="event" className="relative ml-48 mt-16 mb-16">
-			<div className="relative p-16 w-[1000px] border-[#219EBC] rounded-lg overflow-hidden">
-				{/* Background Image */}
-				<div className="absolute inset-0 bg-cover bg-center bg-events-bg opacity-20"></div>
+		<section id="event" className={`relative mt-16 mb-16 ${isMobile ? '' : 'ml-48'}`}>
+			{/* Background Image (Fixed) */}
+			<div
+				className={`relative p-8 ${
+					isMobile ? 'w-full h-[auto]' : 'w-[1000px] h-[700px]'
+				} rounded-lg border-[#219EBC]`}
+			>
+				<div className="absolute inset-0 bg-cover bg-center rounded-xl bg-events-bg opacity-20 bg-fixed"></div>
 				{/* Gradient Overlay */}
-				<div className="absolute inset-0 bg-[#219EBC] opacity-75"></div>
-				{/* Content */}
-				<div className="relative z-10 p-4">
-					<h1 className="text-6xl font-bold mb-4 text-[#F5F5FA]">Events</h1>
+				<div
+					className={`absolute inset-0 bg-[#219EBC] ${isMobile ? '' : 'rounded-xl'}`}
+					style={{ opacity: 0.75 }}
+				></div>
+
+				{/* Content Container */}
+				<div
+					className={`relative z-10 overflow-y-auto h-full scrollbar-hide ${isMobile ? '' : 'p-8'}`}
+				>
+					<h1
+						className={`text-5xl ${isMobile ? 'font-extrabold' : 'font-bold'} mb-4 text-[#F5F5FA]`}
+					>
+						Events
+					</h1>
+
 					{eventsData.length > 0 ? (
 						eventsData.map((event, index) => {
 							const formattedDate = formatDate(event.date)
 							const { month, day } = splitDate(formattedDate)
 
 							return (
-								<div key={index} className="mb-4 p-4 border-b-2 w-[90%] border-gray-200">
-									<p className="text-xl text-[#F5F5FA] flex gap-5">
-										<span className="font-light text-[20px]">{month}</span>{' '}
-										<span className="text-[40px] w-12">{day}</span>
-										<span className="text-[32px]"> {event.title}</span>
+								<div
+									key={index}
+									className={`mb-4 w-full ${
+										isMobile ? 'p-1 ' : 'border-b-2 w-[80%] p-4  border-gray-200'
+									}`}
+								>
+									<p
+										className={`text-xl text-[#F5F5FA] flex gap-5 ${
+											isMobile ? 'text-sm' : 'text-xl'
+										}`}
+									>
+										<span className={`font-light ${isMobile ? 'text-[15px]' : 'text-[20px]'}`}>
+											{month}
+										</span>{' '}
+										<span className={` ${isMobile ? 'text-[16px]' : 'w-12 text-[40px]'}`}>
+											{day}
+										</span>
+										<span className={`${isMobile ? 'text-[20px]' : 'text-[32px] '}`}>
+											{event.title}
+										</span>
 									</p>
 								</div>
 							)
@@ -65,6 +96,8 @@ const Events = () => {
 					)}
 				</div>
 			</div>
+
+			{/* Calendar component */}
 			<Calendar />
 		</section>
 	)

@@ -57,3 +57,13 @@
 	word-wrap: break-word; /* Break words if they are too long */
 	max-width: none; /* Remove any width limitation */
 }
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
+.scrollbar-hide {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
