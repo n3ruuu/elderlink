@@ -16,11 +16,13 @@ const Events = () => {
 	const fetchEvents = async () => {
 		try {
 			const response = await axios.get('http://localhost:5000/events')
-			const sortedEvents = response.data.sort((a, b) => {
-				const dateA = moment(a.date)
-				const dateB = moment(b.date)
-				return dateA.isBefore(dateB) ? -1 : 1
-			})
+			const sortedEvents = response.data
+				.filter((event) => moment(event.date).isAfter(moment())) // Filter events that are in the future
+				.sort((a, b) => {
+					const dateA = moment(a.date)
+					const dateB = moment(b.date)
+					return dateA.isBefore(dateB) ? -1 : 1
+				})
 			setEventsData(sortedEvents)
 		} catch (error) {
 			console.error('Error fetching events:', error)
@@ -70,7 +72,7 @@ const Events = () => {
 								<div
 									key={index}
 									className={`mb-4 w-full ${
-										isMobile ? 'p-1 ' : 'border-b-2 w-[80%] p-4  border-gray-200'
+										isMobile ? 'p-1 ' : 'border-b-2 w-[79%] p-4 border-gray-200'
 									}`}
 								>
 									<p
@@ -81,7 +83,7 @@ const Events = () => {
 										<span className={`font-light ${isMobile ? 'text-[15px]' : 'text-[20px]'}`}>
 											{month}
 										</span>{' '}
-										<span className={` ${isMobile ? 'text-[16px]' : 'w-12 text-[40px]'}`}>
+										<span className={`${isMobile ? 'text-[16px]' : 'w-12 text-[40px]'}`}>
 											{day}
 										</span>
 										<span className={`${isMobile ? 'text-[20px]' : 'text-[32px] '}`}>
@@ -92,7 +94,7 @@ const Events = () => {
 							)
 						})
 					) : (
-						<p className="text-xl text-[#F5F5FA]">Loading events...</p>
+						<p className="text-xl text-[#F5F5FA]">No upcoming events...</p>
 					)}
 				</div>
 			</div>
