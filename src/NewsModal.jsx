@@ -10,12 +10,9 @@ const NewsModal = ({ isOpen, newsData, closeModal }) => {
 	const isMobile = useMediaQuery('(max-width: 414px)')
 
 	return (
-		<div
-			className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center z-50"
-			onClick={closeModal}
-		>
+		<div className="fixed top-0 left-0 w-full h-full bg-black/50 flex justify-center items-center z-50" onClick={closeModal}>
 			<div
-				className={`bg-white p-8 rounded-lg ${isMobile ? ' w-[50%] h-fit' : 'w-1/2'} relative`}
+				className={`bg-white p-8 rounded-lg ${isMobile ? 'w-[90%] h-fit' : 'w-1/2 h-[85%]'} relative overflow-auto`}
 				onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
 			>
 				{/* Close button */}
@@ -24,10 +21,8 @@ const NewsModal = ({ isOpen, newsData, closeModal }) => {
 				</button>
 
 				{/* Modal Content */}
-				<div className="overflow-y-auto">
-					<h2 className={`text-3xl ${isMobile ? 'text-2xl' : 'font-semibold'} text-[#219EBC]`}>
-						{newsData.headline}
-					</h2>
+				<div className="overflow-y-auto h-[70%]">
+					<h2 className={`text-3xl ${isMobile ? 'text-2xl' : 'font-semibold'} text-[#219EBC]`}>{newsData.headline}</h2>
 					<p className="text-xl font-light mt-2">
 						{newsData.author} - {newsData.source}
 					</p>
@@ -38,12 +33,21 @@ const NewsModal = ({ isOpen, newsData, closeModal }) => {
 				</div>
 
 				{/* Image section */}
-				<div
-					className={`mt-4 ${isMobile ? 'h-[40vh]' : 'h-80'} w-full bg-cover bg-center rounded-xl`}
-					style={{
-						backgroundImage: `url(http://localhost:5000/uploads/${newsData.image})`,
-					}}
-				/>
+				<div className="mt-4 justify-center gap-4 flex flex-wrap overflow-auto">
+					{/* Loop through images */}
+					{newsData.images &&
+						JSON.parse(newsData.images).map((image, index) => (
+							<div
+								key={index}
+								className={`h-[200px] md:h-[250px] w-[400px] bg-cover bg-center rounded-xl`}
+								style={{
+									backgroundImage: `url(http://localhost:5000/uploads/${image})`,
+									backgroundSize: 'cover',
+									backgroundPosition: 'center',
+								}}
+							/>
+						))}
+				</div>
 			</div>
 		</div>
 	)
