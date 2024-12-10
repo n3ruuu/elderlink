@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import moment from 'moment'
 import Calendar from './Calendar'
 import axios from 'axios'
-import './calendar.css'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import './css/calendar.css'
+import './css/Event.css'
 
 const Events = () => {
-	const isMobile = useMediaQuery('(max-width: 414px)')
 	const [eventsData, setEventsData] = useState([])
+	const [currentPage, setCurrentPage] = useState(1) // Track the current page
+	const eventsPerPage = 5 // Limit events per page
+	const eventsContainerRef = useRef(null)
 
 	useEffect(() => {
 		fetchEvents()
@@ -18,11 +20,7 @@ const Events = () => {
 			const response = await axios.get('http://localhost:5000/events')
 			const sortedEvents = response.data
 				.filter((event) => moment(event.date).isAfter(moment())) // Filter events that are in the future
-				.sort((a, b) => {
-					const dateA = moment(a.date)
-					const dateB = moment(b.date)
-					return dateA.isBefore(dateB) ? -1 : 1
-				})
+				.sort((a, b) => moment(a.date).diff(moment(b.date))) // Sort by date ascending
 			setEventsData(sortedEvents)
 		} catch (error) {
 			console.error('Error fetching events:', error)
@@ -30,7 +28,7 @@ const Events = () => {
 	}
 
 	const formatDate = (dateString) => {
-		return moment(dateString).format('MMM D').toUpperCase() // 'MMM D' format
+		return moment(dateString).format('MMM D').toUpperCase()
 	}
 
 	const splitDate = (formattedDate) => {
@@ -38,39 +36,77 @@ const Events = () => {
 		return { month, day }
 	}
 
+	const categoryColors = {
+		'Health & Wellness': 'bg-teal-400', // Pastel teal
+		'Social Gathering': 'bg-blue-400', // Pastel blue
+		'Workshops & Classes': 'bg-green-400', // Pastel green
+		Fitness: 'bg-red-400', // Pastel red
+		'Nutritional Support': 'bg-yellow-400', // Pastel yellow
+		'Community Outreach': 'bg-purple-400', // Pastel purple
+		'Assistance Programs': 'bg-orange-400', // Pastel orange
+	}
+
+	// Handle page change
+	const handleNext = () => {
+		if (currentPage < Math.ceil(eventsData.length / eventsPerPage)) {
+			setCurrentPage(currentPage + 1)
+		}
+	}
+
+	const handlePrevious = () => {
+		if (currentPage > 1) {
+			setCurrentPage(currentPage - 1)
+		}
+	}
+
+	// Get events for the current page
+	const currentEvents = eventsData.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
+
+	// Check if more events exist to activate the "Next" button
+	const hasNext = currentPage < Math.ceil(eventsData.length / eventsPerPage)
+
 	return (
-		<section id="event" className={`relative mt-16 mb-16 ${isMobile ? '' : 'ml-48'}`}>
-			{/* Background Image (Fixed) */}
-			<div className={`relative p-8 ${isMobile ? 'w-full h-[auto]' : 'w-[1000px] h-[700px]'} rounded-lg border-[#219EBC]`}>
-				<div className="absolute inset-0 bg-cover bg-center rounded-xl bg-events-bg opacity-20 bg-fixed"></div>
-				{/* Gradient Overlay */}
-				<div className={`absolute inset-0 bg-[#219EBC] ${isMobile ? '' : 'rounded-xl'}`} style={{ opacity: 0.75 }}></div>
+		<section id="event" className="events-section">
+			<div className="events-bg-container">
+				<div className="events-bg"></div>
+				<div className="gradient-overlay"></div>
 
-				{/* Content Container */}
-				<div className={`relative z-10 overflow-y-auto h-full scrollbar-hide ${isMobile ? '' : 'p-8'}`}>
-					<h1 className={`text-5xl ${isMobile ? 'font-extrabold' : 'font-bold'} mb-4 text-[#F5F5FA]`}>Events</h1>
+				<div className="content-container">
+					<div className="events-header-container">
+						<h1 className="events-heading">Events</h1>
+						<div className="event-pagination">
+							<button onClick={handlePrevious} disabled={currentPage === 1}>
+								Previous
+							</button>
+							<button onClick={handleNext} disabled={!hasNext}>
+								Next
+							</button>
+						</div>
+					</div>
 
-					{eventsData.length > 0 ? (
-						eventsData.map((event, index) => {
-							const formattedDate = formatDate(event.date)
-							const { month, day } = splitDate(formattedDate)
+					<div ref={eventsContainerRef}>
+						{currentEvents.length > 0 ? (
+							currentEvents.map((event, index) => {
+								const formattedDate = formatDate(event.date)
+								const { month, day } = splitDate(formattedDate)
+								const categoryClass = categoryColors[event.category] || 'bg-gray-500'
 
-							return (
-								<div key={index} className={`mb-4 w-full ${isMobile ? 'p-1 ' : 'border-b-2 w-[60%] p-4 border-gray-200'}`}>
-									<p className={`text-xl text-[#F5F5FA] flex gap-5 ${isMobile ? 'text-sm' : 'text-xl'}`}>
-										<span className={`font-light ${isMobile ? 'text-[15px]' : 'text-[20px]'}`}>{month}</span> <span className={`${isMobile ? 'text-[16px]' : 'w-12 text-[40px]'}`}>{day}</span>
-										<span className={`${isMobile ? 'text-[20px]' : 'text-[32px] '}`}>{event.title}</span>
-									</p>
-								</div>
-							)
-						})
-					) : (
-						<p className="text-xl text-[#F5F5FA]">No upcoming events...</p>
-					)}
+								return (
+									<div key={index} className={`event-item ${categoryClass}`}>
+										<p className="event-date">
+											<span className="event-month">{month}</span>
+											<span className="event-day">{day}</span>
+											<span className="event-title-landing">{event.title}</span>
+										</p>
+									</div>
+								)
+							})
+						) : (
+							<p className="event-item-paragraph">No upcoming events...</p>
+						)}
+					</div>
 				</div>
 			</div>
-
-			{/* Calendar component */}
 			<Calendar />
 		</section>
 	)

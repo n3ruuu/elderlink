@@ -2,14 +2,11 @@
 import { useState, useEffect } from 'react'
 import Modal from './Modal' // Assuming Modal is in the same directory
 import axios from 'axios'
+import './css/Forms.css'
 
 const Forms = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [formsData, setFormsData] = useState([])
-
-	const openModal = () => {
-		setIsModalOpen(true)
-	}
 
 	const closeModal = () => {
 		setIsModalOpen(false)
@@ -38,23 +35,17 @@ const Forms = () => {
 	}, {})
 
 	return (
-		<section id="forms" className="relative p-8 m-36 text-[24px]">
-			<h1 className="text-6xl pb-8 font-bold text-[#219EBC] mb-8 border-b-2 w-[85%] border-b-[#7671714D]">
-				Application Forms
-			</h1>
+		<section id="forms" className="forms-section">
+			<h1 className="forms-heading">Application Forms</h1>
 
 			{/* Dynamically render categories and forms */}
 			{Object.entries(groupedForms).map(([category, forms]) => (
 				<div key={category} className="mb-12">
-					<h3 className="text-3xl font-semibold text-[#023047] mb-4">{category}</h3>
-					<ul className="list-disc pl-8 text-[#219EBC]">
+					<h3 className="category-heading">{category}</h3>
+					<ul className="form-list">
 						{forms.map((form) => (
-							<li key={form.id} className="cursor-pointer">
-								<a
-									href={`http://localhost:5000/${form.pdfLink}`}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
+							<li key={form.id} className="form-item">
+								<a href={`http://localhost:5000/${form.pdfLink}`} target="_blank" rel="noopener noreferrer">
 									{form.title}
 								</a>
 							</li>
@@ -62,16 +53,6 @@ const Forms = () => {
 					</ul>
 				</div>
 			))}
-
-			{/* Submit Form Button */}
-			<div className="mt-6">
-				<button
-					className="text-[#F5F5FA] text-center bg-[#219EBC] px-8 text-[24px] py-2 rounded-lg hover:bg-[#1A7F8C]"
-					onClick={openModal}
-				>
-					Submit Form
-				</button>
-			</div>
 
 			{/* Modal Component */}
 			{isModalOpen && <Modal closeModal={closeModal} formsData={formsData} />}

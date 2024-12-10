@@ -1,0 +1,270 @@
+.contact-section {
+	position: relative;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.contact-background-image-overlay {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center;
+	background-image: url('src/assets/contact-bg.png');
+	opacity: 0.4;
+}
+
+.contact-color-overlay {
+	position: absolute;
+	inset: 0;
+	background-color: #219ebc;
+	opacity: 0.7;
+}
+
+.contact-content {
+	position: relative;
+	z-index: 10;
+	text-align: center;
+}
+
+.contact-heading {
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-bottom: 1.5rem;
+	color: #f5f5fa;
+}
+
+.contact-email {
+	font-size: 1.25rem;
+	color: #f5f5fa;
+	font-weight: 300;
+}
+
+.officers-section {
+	position: relative;
+	z-index: 10;
+	margin-top: 3rem;
+	text-align: center;
+}
+
+.officers-heading {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #f5f5fa;
+	margin-bottom: 1rem;
+}
+
+.chapter-heading {
+	font-size: 2rem;
+	font-weight: 600;
+	color: #f5f5fa;
+	margin-bottom: 2rem;
+}
+
+.officers-list {
+	font-size: 1.125rem;
+	font-weight: 300;
+	color: #f5f5fa;
+}
+
+.coordinators-heading {
+	font-size: 2rem;
+	font-weight: 600;
+	color: #f5f5fa;
+	margin-top: 3rem;
+	margin-bottom: 1.5rem;
+}
+
+.coordinators-list {
+	font-size: 1.125rem;
+	font-weight: 300;
+	color: #f5f5fa;
+}
+
+@media only screen and (max-width: 374px) {
+	.contact-heading {
+		font-size: 30px;
+		font-weight: bold;
+		margin-bottom: 5px;
+		color: #f5f5fa;
+		text-align: left;
+	}
+
+	.contact-section {
+		align-items: start;
+	}
+
+	.contact-email {
+		font-size: 15px;
+		color: #f5f5fa;
+		font-weight: 300;
+	}
+
+	.officers-section {
+		position: relative;
+		z-index: 10;
+		margin-top: 20px;
+		text-align: left;
+	}
+
+	.officers-heading {
+		font-size: 16px;
+		font-weight: bold;
+		color: #f5f5fa;
+		margin-bottom: 0px;
+	}
+
+	.chapter-heading {
+		font-size: 16px;
+		font-weight: 600;
+		color: #f5f5fa;
+		margin-bottom: 10px;
+	}
+
+	.officers-list {
+		font-size: 13px;
+		font-weight: 300;
+		color: #f5f5fa;
+	}
+
+	.coordinators-heading {
+		font-size: 16px;
+		font-weight: 600;
+		color: #f5f5fa;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.coordinators-list {
+		font-size: 13px;
+		font-weight: 300;
+		color: #f5f5fa;
+	}
+}
+
+@media (min-width: 375px) and (max-width: 424px) {
+	.contact-heading {
+		font-size: 40px;
+		font-weight: bold;
+		margin-top: 70px;
+		margin-bottom: 5px;
+		color: #f5f5fa;
+		text-align: left;
+	}
+
+	.contact-section {
+		align-items: start;
+	}
+
+	.contact-email {
+		font-size: 20px;
+		color: #f5f5fa;
+		font-weight: 300;
+	}
+
+	.officers-section {
+		position: relative;
+		z-index: 10;
+		margin-top: 20px;
+		text-align: left;
+	}
+
+	.officers-heading {
+		font-size: 22px;
+		font-weight: bold;
+		color: #f5f5fa;
+		margin-bottom: 0px;
+	}
+
+	.chapter-heading {
+		font-size: 22px;
+		font-weight: 600;
+		color: #f5f5fa;
+		margin-bottom: 10px;
+	}
+
+	.officers-list {
+		font-size: 18px;
+		font-weight: 300;
+		color: #f5f5fa;
+	}
+
+	.coordinators-heading {
+		font-size: 22px;
+		font-weight: 600;
+		color: #f5f5fa;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.coordinators-list {
+		font-size: 18px;
+		font-weight: 300;
+		color: #f5f5fa;
+		padding-bottom: 70px;
+	}
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+	.contact-heading {
+		font-size: 45px;
+		font-weight: bold;
+		margin-top: 70px;
+		margin-bottom: 5px;
+		color: #f5f5fa;
+		text-align: left;
+	}
+
+	.contact-section {
+		align-items: start;
+	}
+
+	.contact-email {
+		font-size: 20px;
+		color: #f5f5fa;
+		font-weight: 300;
+	}
+
+	.officers-section {
+		position: relative;
+		z-index: 10;
+		margin-top: 20px;
+		text-align: left;
+	}
+
+	.officers-heading {
+		font-size: 25px;
+		font-weight: bold;
+		color: #f5f5fa;
+		margin-bottom: 0px;
+	}
+
+	.chapter-heading {
+		font-size: 25px;
+		font-weight: 600;
+		color: #f5f5fa;
+		margin-bottom: 10px;
+	}
+
+	.officers-list {
+		font-size: 20px;
+		font-weight: 300;
+		color: #f5f5fa;
+	}
+
+	.coordinators-heading {
+		font-size: 25px;
+		font-weight: 600;
+		color: #f5f5fa;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.coordinators-list {
+		font-size: 20px;
+		font-weight: 300;
+		color: #f5f5fa;
+		padding-bottom: 70px;
+	}
+}

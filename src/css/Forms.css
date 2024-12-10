@@ -1,0 +1,74 @@
+/* styles.css */
+
+.forms-section {
+  position: relative;
+  padding: 2rem;
+  margin: 9rem;
+  font-size: 1.5rem;
+}
+
+.forms-heading {
+  font-size: 3.75rem;
+  padding-bottom: 2rem;
+  font-weight: bold;
+  color: #219EBC;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #7671714D;
+  width: 85%;
+}
+
+.category-heading {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #023047;
+  margin-bottom: 1rem;
+}
+
+.form-list {
+  list-style-type: none; 
+  padding-left: 0;
+  color: #219EBC;
+}
+
+.form-item {
+  cursor: pointer;
+}
+
+.forms-submit-button {
+  margin-top: 1.5rem;
+  text-align: center;
+  background-color: #219EBC;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  color: #F5F5FA;
+} 
+
+.submit-button:hover {
+  background-color: #1A7F8C;
+}
+
+@media only screen and (max-width: 767px){
+  .forms-section{
+    /* background-color: #023047 ; */
+    margin:  30px 0 0 0 ;
+    width: 100%;
+  }
+
+  .forms-heading{
+    font-size: 25px;
+    font-weight: 700;
+    width: 100%;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-list {
+    font-size: 14px;
+  }
+  
+ 
+}

@@ -1,0 +1,33 @@
+/* styles.css */
+
+.footer {
+  font-family: 'Inter', sans-serif;
+  color: #F6F6F6;
+  background-color: #004365;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  font-weight: 200;
+  padding: 1rem;
+}
+
+@media only screen and (max-width: 374px) {
+.footer{
+  font-size: 11px;
+  padding: 10px;
+}    
+}
+
+@media (min-width: 375px) and (max-width: 424px){
+  .footer{
+    font-size: 13px;
+    padding: 10px;
+  }  
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+  .footer{
+    font-size: 15px;
+    padding: 10px;
+  }    
+  }

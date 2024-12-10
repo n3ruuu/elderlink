@@ -1,0 +1,303 @@
+.about-section {
+  display: flex;
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  flex-direction: row;
+  padding-left: 14rem;
+}
+
+.about-section-container{
+  display: flex;
+  gap: 60px;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.heading {
+  color: #1F1F29;
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.highlight {
+  color: #219EBC;
+}
+
+.text-content p {
+  line-height: 1.5;
+  font-size: 2rem;
+  text-align: justify;
+  width: 43.75rem;
+}
+
+.images-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.image-container {
+  position: relative;
+  width: 9.375rem;
+  height: 9.375rem;
+  width: auto;
+  height: auto;
+}
+
+.left-image-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #219EBC;
+  opacity: 0.33;
+  border-radius: 1.875rem;
+  mix-blend-mode: overlay;
+} 
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.875rem;
+}
+
+/* Mobile View - Small */
+@media only screen and (max-width: 374px) {
+.about-section{
+  padding: 115px 0 115px 0px;
+  position: relative;
+}
+
+.text-content{
+  text-align: left;
+  margin-left: 25px;
+}
+
+.text-content h1{
+  font-weight: 850;
+  font-size: 35px;
+  width: 20px;
+  line-height: 1.2;
+}
+
+.text-content p{
+  margin-top: 5px;
+  font-size: 15px;
+  text-align: left;
+  width: 185px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.images-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.left-image-container img{
+  width: 100px;
+  height: 100px;
+}
+
+.right-image-container img{
+  width: 100px;
+  height: 190px;
+}
+
+.left-image-container{
+  position: absolute;
+  top: 20%;
+  right: 0;
+  gap: 230px;
+ 
+}
+
+.right-image-container{
+  position: absolute;
+  top: 38%;
+  right: 0;
+  gap: 20px;
+}
+
+.image {
+  border-radius: 20px 0 0 20px;
+}
+
+.about-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #219EBC;
+  opacity: 0.40;
+  inset: 0;
+  border-radius: 20px 0 0 20px;
+  z-index: 1; 
+  mix-blend-mode: overlay;
+}
+}
+
+@media (min-width: 375px) and (max-width: 424px){
+  .about-section{
+    padding: 115px 0 115px 0px;
+    position: relative;
+  }
+  
+  .text-content{
+    text-align: left;
+    margin-left: 25px;
+    width: 250px;
+  }
+  
+  .text-content h1{
+    font-weight: 850;
+    font-size: 40px;
+    width: 250px;
+    line-height: 1.2;
+  }
+  
+  .text-content p{
+    margin-top: 5px;
+    font-size: 18px;
+    text-align: left;
+    width: 220px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+  
+  .images-section{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-image-container img{
+    width: 110px;
+    height: 140px;
+  }
+  
+  .right-image-container img{
+    width: 110px;
+    height: 220px;
+  }
+  
+  .left-image-container{
+    position: absolute;
+    top: 13%;
+    right: 0;
+    gap: 260px;
+   
+  }
+  
+  .right-image-container{
+    position: absolute;
+    top: 35.3%;
+    right: 0;
+    gap: 20px;
+  }
+  
+  .image {
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #219EBC;
+    opacity: 0.40;
+    inset: 0;
+    border-radius: 20px 0 0 20px;
+    z-index: 1; 
+    mix-blend-mode: overlay;
+  }
+}
+
+/* Mobile View - Large */
+@media (min-width: 425px) and (max-width: 767px){
+  .about-section{
+    padding: 115px 0 115px 0px;
+    position: relative;
+  }
+  
+  .text-content{
+    text-align: left;
+    margin-left: 25px;
+    width: 250px;
+  }
+  
+  .text-content h1{
+    font-weight: 850;
+    font-size: 45px;
+    width: 250px;
+    line-height: 1.2;
+  }
+  
+  .text-content p{
+    margin-top: 5px;
+    font-size: 20px;
+    text-align: left;
+    width: 250px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+  
+  .images-section{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-image-container img{
+    width: 120px;
+    height: 150px;
+  }
+  
+  .right-image-container img{
+    width: 120px;
+    height: 230px;
+  }
+  
+  .left-image-container{
+    position: absolute;
+    top: 13%;
+    right: 0;
+    gap: 270px;
+   
+  }
+  
+  .right-image-container{
+    position: absolute;
+    top: 35%;
+    right: 0;
+    gap: 20px;
+  }
+  
+  .image {
+    border-radius: 20px 0 0 20px;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #219EBC;
+    opacity: 0.40;
+    inset: 0;
+    border-radius: 20px 0 0 20px;
+    z-index: 1; 
+    mix-blend-mode: overlay;
+  }
+}

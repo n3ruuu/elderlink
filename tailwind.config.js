@@ -2,13 +2,7 @@
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
-		extend: {
-			backgroundImage: {
-				'custom-bg': "url('./assets/home-bg.png')",
-				'events-bg': "url('./assets/events-bg.png')",
-				'contact-bg': 'url(./assets/contact-bg.png)',
-			},
-		},
+		extend: {},
 		fontFamily: {
 			inter: ['Inter', 'sans-serif'], // Adding Inter as a custom font family
 		},

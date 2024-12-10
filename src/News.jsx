@@ -2,27 +2,30 @@ import { useState, useEffect } from 'react'
 import moment from 'moment'
 import NewsModal from './NewsModal'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import './css/News.css'
 
 const News = () => {
 	const [newsData, setNewsData] = useState([])
 	const [currentSlide, setCurrentSlide] = useState(0)
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [selectedNews, setSelectedNews] = useState(null)
-	const isMobile = useMediaQuery('(max-width: 414px)')
+	const isMobile = useMediaQuery('(max-width: 767px)')
 
+	// Set the number of slides to show based on the screen size
 	const slidesToShow = isMobile ? 1 : 3 // 1 slide for mobile, 3 for desktop
 	const totalSlides = newsData.length - slidesToShow + 1
 
-	// Fetch news data
+	// Check if the number of news items is 3 or fewer
+	const isSinglePageMode = newsData.length <= 3
+
 	const fetchNewsData = async () => {
 		try {
 			const response = await fetch('http://localhost:5000/news')
 			const data = await response.json()
 
-			// Filter out news items older than 7 days
-			const recentNews = data.filter((news) => moment(news.date).isAfter(moment().subtract(7, 'days')))
-
-			setNewsData(recentNews)
+			// Filter the news data to only include items with status 'Active'
+			const activeNews = data.filter((news) => news.status === 'Active')
+			setNewsData(activeNews) // Set the filtered data
 		} catch (error) {
 			console.error('Error fetching news data:', error)
 		}
@@ -32,77 +35,74 @@ const News = () => {
 		fetchNewsData()
 	}, [])
 
-	// Handle next and previous slides, only if there are enough news items
 	const nextSlide = () => {
-		if (newsData.length >= 4) {
-			setCurrentSlide((prevSlide) => (prevSlide === totalSlides - 1 ? 0 : prevSlide + 1))
-		}
+		if (isSinglePageMode) return // Skip sliding if there are 3 or fewer items
+		setCurrentSlide((prevSlide) => (prevSlide === totalSlides - 1 ? 0 : prevSlide + 1))
 	}
 
 	const prevSlide = () => {
-		if (newsData.length >= 4) {
-			setCurrentSlide((prevSlide) => (prevSlide === 0 ? totalSlides - 1 : prevSlide - 1))
-		}
+		if (isSinglePageMode) return // Skip sliding if there are 3 or fewer items
+		setCurrentSlide((prevSlide) => (prevSlide === 0 ? totalSlides - 1 : prevSlide - 1))
 	}
 
-	// Automatically slide every 3 seconds, only if there are enough news items
 	useEffect(() => {
-		let interval
-		if (newsData.length >= 4) {
-			interval = setInterval(nextSlide, 3000)
+		// Only set interval for sliding if more than 3 news items exist
+		if (newsData.length > 3) {
+			const interval = setInterval(nextSlide, 3000)
+			return () => clearInterval(interval)
 		}
-		return () => clearInterval(interval)
-	}, [currentSlide, newsData.length])
+	}, [newsData, currentSlide])
 
-	// Open modal when a news item is clicked
 	const openModal = (news) => {
 		setSelectedNews(news)
 		setIsModalOpen(true)
 	}
 
-	// Close modal
 	const closeModal = () => {
 		setIsModalOpen(false)
 		setSelectedNews(null)
 	}
 
 	return (
-		<section id="news" className="relative w-full max-w-[1500px] mx-auto overflow-hidden rounded-lg">
-			<h1 className={`${isMobile ? 'font-extrabold text-5xl text-center' : 'font-bold text-6xl'} text-[#219EBC] text-left`}>Latest News</h1>
-			<div className="pt-16 pb-16 flex relative">
-				<div className="overflow-hidden w-full">
-					<div className="flex gap-5 transition-transform duration-500" style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}>
-						{/* Display only the first news item */}
-						{newsData.map((news) => (
-							<div
-								key={news.id}
-								className={`${isMobile ? 'w-[70%]' : 'w-[calc(33.3333%-1rem)]'} cursor-pointer rounded-2xl flex-shrink-0 h-[500px] bg-cover bg-center`}
-								style={{
-									backgroundImage: `url(http://localhost:5000/uploads/${JSON.parse(news.images)[0]})`,
-								}}
-								onClick={() => openModal(news)} // Open the modal when clicked
-							>
-								<div className="p-12 flex items-end h-full bg-gradient-to-b from-[#C1F3FF]/0 to-[#219EBC]/75 rounded-xl text-white">
-									<div>
-										<h2 className="text-2xl font-semibold">{news.headline}</h2>
-										<p className="text-xl font-light">
-											{news.author} - {news.source}
-										</p>
-										<p className="text-xl">{moment(news.date).format('MMMM Do YYYY, h:mm A')}</p>
+		<section id="news" className="news-section">
+			<h1 className="news-heading">Latest News</h1>
+			<div className="news-container">
+				<div className="news-inner-container">
+					<div className="news-slider" style={{ transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)` }}>
+						{newsData.map((news) => {
+							// Parse the images string into an actual array
+							const images = JSON.parse(news.images)
+
+							// Check if the array is valid and has at least one image
+							const firstImage = images && images.length > 0 ? images[0] : 'default-image.jpg' // Fallback to a default image
+
+							return (
+								<div
+									key={news.id}
+									className="news-slide"
+									style={{ backgroundImage: `url(http://localhost:5000/uploads/${firstImage})` }}
+									onClick={() => openModal(news)} // Open the modal when clicked
+								>
+									<div className="slide-content">
+										<div>
+											<p className="slide-date">{moment(news.date).format('MMMM D' + ', ' + 'YYYY')}</p>
+											<h2 className="slide-heading">{news.headline}</h2>
+											<p className="slide-author">Posted by: {news.author}</p>
+										</div>
 									</div>
 								</div>
-							</div>
-						))}
+							)
+						})}
 					</div>
 				</div>
 
-				{/* Navigation Arrows (only if there are 4 or more news items) */}
-				{!isMobile && newsData.length >= 4 && (
+				{/* Navigation Arrows */}
+				{!isSinglePageMode && (
 					<>
-						<button onClick={prevSlide} className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-none text-[#F5F5FA] text-8xl font-extralight">
+						<button onClick={prevSlide} className="nav-button nav-button-left">
 							&#8249;
 						</button>
-						<button onClick={nextSlide} className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-none text-[#F5F5FA] text-8xl font-extralight">
+						<button onClick={nextSlide} className="nav-button nav-button-right">
 							&#8250;
 						</button>
 					</>
