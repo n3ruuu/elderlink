@@ -1,0 +1,198 @@
+body {
+	font-family: Calibri;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	background-color: #f9f9f9;
+	font-size: 14px;
+}
+.nav {
+	width: 100%;
+	background-color: #f1f1f1;
+	color: white;
+	display: flex;
+	align-items: center;
+	padding: 10px 20px;
+	box-sizing: border-box;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+}
+.nav .logo {
+	width: 180px;
+}
+.nav h1 {
+	flex: 1;
+	text-align: center;
+	margin: 0;
+	font-size: 30px;
+	font-family: 'Inter';
+	font-weight: 800;
+	color: #219ebc;
+	letter-spacing: -0.5px;
+}
+.nav #pdf-button {
+	background-color: #219ebc;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-family: 'Inter';
+}
+#container {
+	width: 816px;
+	min-height: 1056px;
+	background-color: #fff;
+	box-shadow: inset;
+	padding: 40px;
+	margin-top: 120px; /* Space for the nav bar */
+	margin-bottom: 40px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+}
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	position: relative;
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.header .logo {
+	position: absolute;
+	margin-right: 250px;
+	margin-bottom: 60px;
+}
+.header img {
+	width: 80px;
+	height: 80px;
+}
+.header-content {
+	text-align: center;
+}
+.photo-box {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 130px;
+	height: 130px;
+	border: 1px solid #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 12px;
+	color: #555;
+}
+.header-content h1 {
+	font-size: 20px;
+	margin: 5px 0;
+}
+.header-content h2 {
+	font-size: 18px;
+	margin: 0;
+}
+.requirements {
+	border: 1px solid #000;
+	padding: 10px;
+	margin-bottom: 20px;
+	font-size: 12px;
+}
+.reqtitle {
+	text-align: center;
+}
+.reqtitle p {
+	margin: 0;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+.allreqs {
+	display: flex;
+	justify-content: space-between;
+}
+.allreqs div {
+	flex: 1;
+	margin: 0 10px;
+}
+.allreqs input {
+	margin-right: 5px;
+}
+.form-group {
+	display: flex; /* Align items horizontally */
+	align-items: center; /* Vertically align label and input */
+	margin-bottom: 10px;
+}
+
+.form-group label {
+	width: 100px; /* Adjust label width for alignment */
+}
+
+.form-group input,
+.form-group textarea {
+	flex: 1; /* Allow input fields to take up remaining space */
+	padding: 5px;
+	border: none;
+	border-bottom: 1px solid #000;
+	font-family: Calibri;
+	font-size: 14px;
+}
+.form-group input[readonly] {
+	background-color: #f0f0f0;
+}
+.emergency-info {
+	display: flex;
+	justify-content: space-between;
+}
+.signature {
+	text-align: right;
+	margin-top: 20px;
+}
+.footer {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+.issued {
+	margin-top: 45px;
+}
+.footer .issued,
+.footer .approved {
+	flex: 1;
+}
+input {
+	margin-right: 5px;
+}
+.pledge {
+	text-indent: 50px;
+	text-align: justify;
+}
+.signature {
+	margin-right: 30px;
+}
+.issued2 {
+	font-size: 12px;
+	font-weight: bold;
+}
+.watermark {
+	font-size: 9px;
+	margin-left: 50px;
+}
+.angelito {
+	margin-top: -10px;
+	margin-right: 20px;
+	text-align: center;
+}
+.medgroc {
+	margin-top: -10px;
+	margin-left: 30px;
+	font-weight: lighter;
+}
+.date {
+	margin-top: 0px;
+	margin-left: 125px;
+}
+.rec {
+	margin-bottom: 0px;
+}

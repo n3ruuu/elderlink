@@ -14,23 +14,17 @@ const Modal = ({ onClose }) => {
 		civilStatus: '',
 		address: '',
 		contactNumber: '',
-		medicalConditions: [],
-		medications: [],
+		nameOfSpouse: '',
+		placeOfBirth: '',
+		occupation: '',
+		education: '',
 		guardianFirstName: '',
 		guardianMiddleName: '',
 		guardianLastName: '',
 		guardianEmail: '',
 		guardianContact: '',
 		guardianRelationship: '',
-		formFile: null, // Add state to hold the file
 	})
-
-	const handleFileUpload = (event) => {
-		const file = event.target.files[0]
-		if (file) {
-			setFormValues({ ...formValues, formFile: file }) // Set the actual file in state
-		}
-	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -73,65 +67,13 @@ const Modal = ({ onClose }) => {
 		setFormValues({ ...formValues, [name]: value })
 	}
 
-	const handleKeyPressConditions = (e) => {
-		if (e.key === 'Enter') {
-			e.preventDefault()
-			const condition = e.target.value.trim()
-			if (condition && !formValues.medicalConditions.includes(condition)) {
-				setFormValues((prevData) => ({
-					...prevData,
-					medicalConditions: [...prevData.medicalConditions, condition],
-				}))
-			}
-			e.target.value = ''
-		}
-	}
-
-	const handleKeyPressMedications = (e) => {
-		if (e.key === 'Enter') {
-			e.preventDefault()
-			const medication = e.target.value.trim()
-			if (medication && !formValues.medications.includes(medication)) {
-				setFormValues((prevData) => ({
-					...prevData,
-					medications: [...prevData.medications, medication],
-				}))
-			}
-			e.target.value = ''
-		}
-	}
-
-	const removeCondition = (condition) => {
-		setFormValues((prevData) => ({
-			...prevData,
-			medicalConditions: prevData.medicalConditions.filter((c) => c !== condition),
-		}))
-	}
-
-	const removeMedication = (medication) => {
-		setFormValues((prevData) => ({
-			...prevData,
-			medications: prevData.medications.filter((m) => m !== medication),
-		}))
-	}
-
 	return (
 		<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
-			<div className="bg-white p-8 rounded-lg shadow-lg w-[40%]">
+			<div className="bg-white p-8 rounded-lg shadow-lg w-[40%] h-[90%] overflow-y-auto">
 				<h2 className="text-2xl font-semibold text-gray-800 mb-6">Register to OSCA</h2>
 
 				<form>
-					<Form
-						formValues={formValues}
-						onChange={handleInputChange}
-						onClose={onClose}
-						handleKeyPressConditions={handleKeyPressConditions}
-						handleKeyPressMedications={handleKeyPressMedications}
-						removeCondition={removeCondition}
-						removeMedication={removeMedication}
-						handleSubmit={handleSubmit}
-						handleFileUpload={handleFileUpload}
-					/>
+					<Form formValues={formValues} onChange={handleInputChange} onClose={onClose} handleSubmit={handleSubmit} />
 				</form>
 			</div>
 		</div>

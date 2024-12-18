@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment'
 
-const Form = ({ formValues, onChange, onClose, handleKeyPressConditions, handleKeyPressMedications, removeCondition, removeMedication, handleSubmit, handleFileUpload }) => {
+const Form = ({ formValues, onChange, onClose, handleSubmit }) => {
 	return (
 		<>
 			{/* Name Fields */}
@@ -128,6 +128,40 @@ const Form = ({ formValues, onChange, onClose, handleKeyPressConditions, handleK
 				</div>
 			</div>
 
+			{/* Place of Birth and Name of Husband/Wife */}
+			<div className="grid grid-cols-2 gap-4 mb-4">
+				{/* Place of Birth */}
+				<div>
+					<label htmlFor="placeOfBirth" className="block text-lg font-medium text-gray-700 mb-1">
+						Place of Birth <span className="text-red-500">*</span>
+					</label>
+					<input
+						type="text"
+						id="placeOfBirth"
+						name="placeOfBirth"
+						value={formValues.placeOfBirth}
+						onChange={onChange}
+						className="p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+						placeholder="Enter place of birth"
+					/>
+				</div>
+
+				<div>
+					<label htmlFor="occupation" className="block text-lg font-medium text-gray-700 mb-1">
+						Occupation <span className="text-red-500">*</span>
+					</label>
+					<input
+						type="text"
+						id="occupation"
+						name="occupation"
+						value={formValues.occupation}
+						onChange={onChange}
+						className="p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+						placeholder="Enter occupation"
+					/>
+				</div>
+			</div>
+
 			<div className="grid grid-cols-2 gap-4 mb-4">
 				{/* Address Field */}
 				<div>
@@ -164,51 +198,36 @@ const Form = ({ formValues, onChange, onClose, handleKeyPressConditions, handleK
 				</div>
 			</div>
 
-			{/* Medical Conditions and Medications */}
-			<div className="grid grid-cols-2 gap-4 mb-4">
-				{/* Medical Conditions */}
-				<div>
-					<label htmlFor="medicalConditions" className="block text-lg font-medium text-gray-700 mb-1">
-						Medical Conditions
-					</label>
-					<input
-						type="text"
-						id="medicalConditions"
-						name="medicalConditions"
-						onKeyPress={handleKeyPressConditions}
-						className="p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-						placeholder="Enter medical condition and press Enter"
-					/>
-					<div className="flex flex-wrap gap-2 mt-2">
-						{formValues.medicalConditions.map((condition, index) => (
-							<div key={index} className="bg-[#219EBC] text-white px-3 py-1 rounded-full cursor-pointer hover:bg-[#168B99]" onClick={() => removeCondition(condition)}>
-								{condition} <span className="ml-2 font-bold transition-transform duration-300 transform hover:scale-125 hover:text-gray-300">&times;</span>
-							</div>
-						))}
-					</div>
-				</div>
+			{/* Name of Husband/Wife */}
+			<div className="mb-6">
+				<label htmlFor="nameOfSpouse" className="block text-lg font-medium text-gray-700 mb-1">
+					Name of Husband/Wife <span className="text-red-500">*</span>
+				</label>
+				<input
+					type="text"
+					id="nameOfSpouse"
+					name="nameOfSpouse"
+					value={formValues.nameOfSpouse}
+					onChange={onChange}
+					className="p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+					placeholder="Enter name of husband/wife"
+				/>
+			</div>
 
-				{/* Medications */}
-				<div>
-					<label htmlFor="medications" className="block text-lg font-medium text-gray-700 mb-1">
-						Medications
-					</label>
-					<input
-						type="text"
-						id="medications"
-						name="medications"
-						onKeyPress={handleKeyPressMedications}
-						className="p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
-						placeholder="Enter medication and press Enter"
-					/>
-					<div className="flex flex-wrap gap-2 mt-2">
-						{formValues.medications.map((medication, index) => (
-							<div key={index} className="bg-[#219EBC] text-white px-3 py-1 rounded-full cursor-pointer hover:bg-[#168B99]" onClick={() => removeMedication(medication)}>
-								{medication} <span className="ml-2 font-bold">&times;</span>
-							</div>
-						))}
-					</div>
-				</div>
+			{/* Name of Husband/Wife */}
+			<div className="mb-6">
+				<label htmlFor="education" className="block text-lg font-medium text-gray-700 mb-1">
+					Educational Attainment <span className="text-red-500">*</span>
+				</label>
+				<input
+					type="text"
+					id="education"
+					name="education"
+					value={formValues.education}
+					onChange={onChange}
+					className="p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+					placeholder="Enter educational attainment"
+				/>
 			</div>
 
 			{/* Guardian's Information */}
@@ -323,27 +342,7 @@ const Form = ({ formValues, onChange, onClose, handleKeyPressConditions, handleK
 					</div>
 				</div>
 
-				<div className="flex justify-between mt-6">
-					<div className="flex flex-col items-start">
-						{/* Upload File button */}
-						<div className="flex items-center">
-							<label
-								htmlFor="fileUpload"
-								className="border w-[135px] cursor-pointer text-lg h-[45px] border-[#219EBC] bg-transparent hover:bg-[#219EBC] hover:text-white text-[#219EBC] font-bold py-2 px-4 rounded transition-colors duration-300"
-							>
-								Upload File
-								<input id="fileUpload" type="file" className="hidden" onChange={handleFileUpload} />
-							</label>
-						</div>
-
-						{/* Display file name */}
-						{formValues.formFile && (
-							<p className="mt-2 text-gray-600 text-sm">
-								<span className="font-medium">{formValues.formFile.name}</span>
-							</p>
-						)}
-					</div>
-
+				<div className="flex justify-end mt-6">
 					{/* Buttons on the right */}
 					<div className="flex space-x-4">
 						<button
@@ -355,6 +354,10 @@ const Form = ({ formValues, onChange, onClose, handleKeyPressConditions, handleK
 						</button>
 						<button type="button" className="w-[100px] text-lg h-[45px] font-bold py-2 px-4 rounded transition-colors duration-300 bg-[#219EBC] hover:bg-[#1A7A8A] text-white" onClick={handleSubmit}>
 							Submit
+						</button>
+						{/* Generate PDF Button */}
+						<button type="button" className="w-[170px] text-lg h-[45px] font-bold py-2 px-4 rounded transition-colors duration-300 bg-[#FF6347] hover:bg-[#E55347] text-white">
+							Generate PDF
 						</button>
 					</div>
 				</div>
