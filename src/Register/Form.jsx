@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import moment from 'moment'
 
-const Form = ({ formValues, onChange, onClose, handleSubmit }) => {
+const Form = ({ formValues, onChange, onClose, handleNext, generatePDF }) => {
 	return (
 		<>
 			{/* Name Fields */}
@@ -342,25 +342,39 @@ const Form = ({ formValues, onChange, onClose, handleSubmit }) => {
 					</div>
 				</div>
 
-				<div className="flex justify-end mt-6">
-					{/* Buttons on the right */}
-					<div className="flex space-x-4">
-						<button
-							type="button"
-							onClick={onClose}
-							className="border w-[100px] text-lg h-[45px] border-[#219EBC] bg-transparent hover:bg-[#219EBC] hover:text-white text-[#219EBC] font-bold py-2 px-4 rounded transition-colors duration-300"
-						>
-							Cancel
-						</button>
-						<button type="button" className="w-[100px] text-lg h-[45px] font-bold py-2 px-4 rounded transition-colors duration-300 bg-[#219EBC] hover:bg-[#1A7A8A] text-white" onClick={handleSubmit}>
-							Submit
-						</button>
-						{/* Generate PDF Button */}
-						<button type="button" className="w-[170px] text-lg h-[45px] font-bold py-2 px-4 rounded transition-colors duration-300 bg-[#FF6347] hover:bg-[#E55347] text-white">
-							Generate PDF
-						</button>
-					</div>
-				</div>
+				<div className="flex items-center justify-between mt-6">
+	{/* Generate PDF Button on the bottom left */}
+	<div>
+		<button
+			type="button"
+			className="w-[170px] text-lg h-[45px] font-bold py-2 px-4 rounded transition-colors duration-300 bg-[#FF6347] hover:bg-[#E55347] text-white"
+	onClick={generatePDF}
+
+		>
+			Generate PDF
+		</button>
+	</div>
+	{/* Buttons on the bottom right */}
+	<div className="flex space-x-4">
+	<button
+	type="button"
+	onClick={onClose}
+	className="bg-gray-400 hover:bg-gray-500 text-white text-lg px-3 py-1 rounded h-[45px] w-[100px]"
+
+>
+	Cancel
+</button>
+
+		<button
+			type="button"
+			className="w-[100px] text-lg h-[45px] font-bold py-2 px-4 rounded transition-colors duration-300 bg-[#219EBC] hover:bg-[#1A7A8A] text-white"
+			onClick={handleNext}
+		>
+			Next
+		</button>
+	</div>
+</div>
+
 			</div>
 		</>
 	)

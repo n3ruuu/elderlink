@@ -36,7 +36,7 @@ const Forms = () => {
 
 	return (
 		<section id="forms" className="forms-section">
-			<h1 className="forms-heading">Application Forms</h1>
+			<h1 className="forms-heading">Form Library</h1>
 
 			{/* Dynamically render categories and forms */}
 			{Object.entries(groupedForms).map(([category, forms]) => (

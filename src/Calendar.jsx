@@ -1,11 +1,11 @@
-import React from 'react'
-import { useEffect, useState } from 'react'
-import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import axios from 'axios' // Import axios for API calls
-import './css/calendar.css' // Import the external CSS file
+import { useEffect, useState } from "react"
+import FullCalendar from "@fullcalendar/react"
+import dayGridPlugin from "@fullcalendar/daygrid"
+import timeGridPlugin from "@fullcalendar/timegrid"
+import interactionPlugin from "@fullcalendar/interaction"
+import axios from "axios" // Import axios for API calls
+import "./css/calendar.css" // Import the external CSS file
+import moment from "moment" // Import Moment.js for date manipulation
 
 const Calendar = () => {
     const [events, setEvents] = useState([])
@@ -16,27 +16,83 @@ const Calendar = () => {
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/events') // Replace with your API endpoint
+            const response = await axios.get("http://localhost:5000/events") // Replace with your API endpoint
             const formattedEvents = response.data
-                .filter((event) => event.status === 'Active') // Filter to include only active events
+                .filter((event) => event.status === "Active") // Filter to include only active events
                 .map((event) => ({
-                    title: event.title,
-                    date: formatDate(event.date),
-                    location: event.location,
-                    organizer: event.organizer,
-                    category: event.category,
-                    allDay: true, // Mark events as all-day
+                    ...event,
+                    occurrences: getEventOccurrences(event),
                 }))
+                .flatMap((event) => event.occurrences) // Flatten the recurring events
             setEvents(formattedEvents)
         } catch (error) {
-            console.error('Error fetching events:', error)
+            console.error("Error fetching events:", error)
         }
     }
 
-    const formatDate = (dateStr) => {
-        // Convert MM-DD-YYYY to YYYY-MM-DD
-        const [month, day, year] = dateStr.split('-')
-        return `${month}-${day}-${year}`
+    const getEventOccurrences = (event) => {
+        const occurrences = []
+        const startDate = moment(event.date)
+        const endDate = moment(event.endDate)
+
+        switch (event.recurrence) {
+            case "Weekly":
+                for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'week')) {
+                    occurrences.push({
+                        title: event.title,
+                        date: date.format("YYYY-MM-DD"),
+                        location: event.location,
+                        organizer: event.organizer,
+                        category: event.category,
+                    })
+                }
+                break
+            case "Monthly":
+                for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'month')) {
+                    occurrences.push({
+                        title: event.title,
+                        date: date.format("YYYY-MM-DD"),
+                        location: event.location,
+                        organizer: event.organizer,
+                        category: event.category,
+                    })
+                }
+                break
+            case "Yearly":
+                for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'year')) {
+                    occurrences.push({
+                        title: event.title,
+                        date: date.format("YYYY-MM-DD"),
+                        location: event.location,
+                        organizer: event.organizer,
+                        category: event.category,
+                    })
+                }
+                break
+            case "Daily":
+                for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'day')) {
+                    occurrences.push({
+                        title: event.title,
+                        date: date.format("YYYY-MM-DD"),
+                        location: event.location,
+                        organizer: event.organizer,
+                        category: event.category,
+                    })
+                }
+                break
+            default:
+                // For one-time events, only add the start date
+                occurrences.push({
+                    title: event.title,
+                    date: startDate.format("YYYY-MM-DD"),
+                    location: event.location,
+                    organizer: event.organizer,
+                    category: event.category,
+                })
+                break
+        }
+
+        return occurrences
     }
 
     return (
@@ -48,32 +104,21 @@ const Calendar = () => {
                     events={events} // Pass events to FullCalendar
                     headerToolbar={{
                         left: null, // Navigation buttons
-                        center: 'title', // Center title
-                        right: 'prev,next',
+                        center: "title", // Center title
+                        right: "prev,next",
                     }}
                     height="100%"
-                    themeSystem="standard"
-                    eventTimeFormat={{
-                        // Remove the time format
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        meridiem: false, // Hide AM/PM
-                    }}
                     dayCellDidMount={(info) => {
                         // Create a container for the event titles
-                        const eventContainer = document.createElement('div')
-                        eventContainer.className = 'calendar-daygrid-day-events'
+                        const eventContainer = document.createElement("div")
+                        eventContainer.className = "fc-daygrid-day-events"
 
                         // Add events to the container
                         events.forEach((event) => {
                             if (event.date === info.dateStr) {
-                                const eventTitle = document.createElement('div')
+                                const eventTitle = document.createElement("div")
                                 eventTitle.textContent = event.title
-                                eventTitle.className = 'event-title' // Add a class for styling
-
-                                // Add a title attribute for the tooltip effect
-                                eventTitle.title = event.title // Display full title on hover
-
+                                eventTitle.className = "event-title" // Add a class for styling
                                 eventContainer.appendChild(eventTitle)
                             }
                         })

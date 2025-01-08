@@ -20,11 +20,86 @@ const Events = () => {
 			const response = await axios.get('http://localhost:5000/events')
 			const sortedEvents = response.data
 				.filter((event) => moment(event.date).isAfter(moment())) // Filter events that are in the future
+				.map((event) => ({
+					...event,
+					occurrences: getEventOccurrences(event), // Add recurrence handling
+				}))
+				.flatMap((event) => event.occurrences) // Flatten recurrence events
 				.sort((a, b) => moment(a.date).diff(moment(b.date))) // Sort by date ascending
 			setEventsData(sortedEvents)
 		} catch (error) {
 			console.error('Error fetching events:', error)
 		}
+	}
+
+	const getEventOccurrences = (event) => {
+		const occurrences = []
+		const startDate = moment(event.date)
+		const endDate = moment(event.endDate)
+
+		switch (event.recurrence) {
+			case 'Weekly':
+				for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'week')) {
+					occurrences.push({
+						title: event.title,
+						date: date.format('YYYY-MM-DD'),
+						recurrence: 'Weekly',
+						location: event.location,
+						organizer: event.organizer,
+						category: event.category,
+					})
+				}
+				break
+			case 'Monthly':
+				for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'month')) {
+					occurrences.push({
+						title: event.title,
+						date: date.format('YYYY-MM-DD'),
+						recurrence: 'Monthly',
+						location: event.location,
+						organizer: event.organizer,
+						category: event.category,
+					})
+				}
+				break
+			case 'Yearly':
+				for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'year')) {
+					occurrences.push({
+						title: event.title,
+						date: date.format('YYYY-MM-DD'),
+						recurrence: 'Yearly',
+						location: event.location,
+						organizer: event.organizer,
+						category: event.category,
+					})
+				}
+				break
+			case 'Daily':
+				for (let date = startDate; date.isBefore(endDate) || date.isSame(endDate, 'day'); date.add(1, 'day')) {
+					occurrences.push({
+						title: event.title,
+						date: date.format('YYYY-MM-DD'),
+						recurrence: 'Daily',
+						location: event.location,
+						organizer: event.organizer,
+						category: event.category,
+					})
+				}
+				break
+			default:
+				// For one-time events, only add the start date
+				occurrences.push({
+					title: event.title,
+					date: startDate.format('YYYY-MM-DD'),
+					recurrence: 'One-Time',
+					location: event.location,
+					organizer: event.organizer,
+					category: event.category,
+				})
+				break
+		}
+
+		return occurrences
 	}
 
 	const formatDate = (dateString) => {
@@ -37,13 +112,13 @@ const Events = () => {
 	}
 
 	const categoryColors = {
-		'Health & Wellness': 'bg-teal-400', // Pastel teal
-		'Social Gathering': 'bg-blue-400', // Pastel blue
-		'Workshops & Classes': 'bg-green-400', // Pastel green
-		Fitness: 'bg-red-400', // Pastel red
-		'Nutritional Support': 'bg-yellow-400', // Pastel yellow
-		'Community Outreach': 'bg-purple-400', // Pastel purple
-		'Assistance Programs': 'bg-orange-400', // Pastel orange
+		'Health & Wellness': 'bg-teal-400',
+		'Social Gathering': 'bg-blue-400',
+		'Workshops & Classes': 'bg-green-400',
+		Fitness: 'bg-red-400',
+		'Nutritional Support': 'bg-yellow-400',
+		'Community Outreach': 'bg-purple-400',
+		'Assistance Programs': 'bg-orange-400',
 	}
 
 	// Handle page change
@@ -94,10 +169,11 @@ const Events = () => {
 								return (
 									<div key={index} className={`event-item ${categoryClass}`}>
 										<p className="event-date">
-											<span className="event-month">{month}</span>
+											<span className="event-month mt-2">{month}</span>
 											<span className="event-day">{day}</span>
 											<span className="event-title-landing">{event.title}</span>
 										</p>
+										<p className="event-recurrence text-white">{event.recurrence} Event</p>
 									</div>
 								)
 							})
