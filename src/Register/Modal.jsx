@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Form from './Form';
 import RegisterModal from './RegisterModal';
 import jsPDF from 'jspdf'
@@ -32,7 +32,25 @@ const Modal = ({ onClose }) => {
 	
 
 	const [showRegisterModal, setShowRegisterModal] = useState(false); // Control RegisterModal
+	const [signatory, setSignatory] = useState({ name: '', position: '' });
 
+	useEffect(() => {
+		const fetchSignatory = async () => {
+		  try {
+			const response = await fetch('http://localhost:5000/cms/signatory');
+			const data = await response.json();
+			if (data.length > 0) {
+			  setSignatory(data[0]);
+			  console.log("Fetched Signatory: ", data[0]); // Log fetched data directly
+			}
+		  } catch (error) {
+			console.error('Error fetching signatory data:', error);
+		  }
+		};
+	  
+		fetchSignatory();
+	  }, []);
+	  
 	const handleNext = (e) => {
 		e.preventDefault(); // Prevent form submission
 		setShowRegisterModal(true); // Open RegisterModal
@@ -215,8 +233,8 @@ const Modal = ({ onClose }) => {
 		// "APPROVED BY:" section
 		const approvedByY = dateY + 15; // Adjust Y position for "APPROVED BY:"
 		doc.text('APPROVED BY:', 10, approvedByY);
-		doc.text('ANGELO L. SANTIAGO', 35, approvedByY + 5); // Name
-		doc.text('OSCA Head', 43, approvedByY + 10); // Position
+		doc.text(signatory.name, 35, approvedByY + 5); // Name
+		doc.text(signatory.position, 43, approvedByY + 10); // Position
 	
 		const issuedBy = sectionY + 20; // Add spacing for "issue:"
 		doc.text('ISSUED BY:', 105, issuedBy);

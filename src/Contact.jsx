@@ -35,7 +35,7 @@ const Contact = () => {
 			{/* Content */}
 			<div className="contact-content">
 				<h1 className="contact-heading">Contact Us</h1>
-				<h2 className="contact-email">elderlink.support@gmail.com</h2>
+				<h2 className="contact-email">elderlinkinfo2025@gmail.com</h2>
 			</div>
 
 			{/* Officers and Area Coordinators Section */}
