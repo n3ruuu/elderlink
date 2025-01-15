@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import Form from './Form';
+import ErrorModal from "./ErrorModal"
 import RegisterModal from './RegisterModal';
 import jsPDF from 'jspdf'
 import moment from 'moment';
@@ -29,8 +30,8 @@ const Modal = ({ onClose }) => {
 		guardianRelationship: '',
 	});
 
-	
-
+	const [errors, setErrors] = useState([])
+    const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
 	const [showRegisterModal, setShowRegisterModal] = useState(false); // Control RegisterModal
 	const [signatory, setSignatory] = useState({ name: '', position: '' });
 
@@ -51,15 +52,91 @@ const Modal = ({ onClose }) => {
 		fetchSignatory();
 	  }, []);
 	  
-	const handleNext = (e) => {
+	const handleNext = async (e) => {
 		e.preventDefault(); // Prevent form submission
-		setShowRegisterModal(true); // Open RegisterModal
+		const validationErrors = await validateForm()
+        if (validationErrors.length > 0) {
+            setErrors(validationErrors)
+            setIsErrorModalOpen(true)
+        } else {
+			setShowRegisterModal(true); // Open RegisterModal
+		}
 	};
 
 	const calculateAge = (dob) => {
 		return moment().diff(moment(dob, 'YYYY-MM-DD'), 'years');
 	  };
 	  
+	  const validateForm = async () => {
+		const errorMessages = [];
+	
+		// Validate Age (must be 60 or above)
+		const dob = new Date(formValues.dob);
+		const today = new Date();
+		const age = today.getFullYear() - dob.getFullYear();
+		if (age < 60) {
+			errorMessages.push("Age must be 60 or above.");
+		}
+	
+		// Validate Name (First and Last Name must only contain letters)
+		const namePattern = /^[A-Za-z\s]+$/;
+		if (!namePattern.test(formValues.firstName)) {
+			errorMessages.push("First Name must only contain letters.");
+		}
+		if (!namePattern.test(formValues.lastName)) {
+			errorMessages.push("Last Name must only contain letters.");
+		}
+	
+		// Validate Contact Number (must follow format: 09123456789)
+		const contactPattern = /^09\d{9}$/;
+		if (!contactPattern.test(formValues.contactNumber)) {
+			errorMessages.push("Contact Number must follow the format: 09123456789.");
+		}
+	
+		// Validate required fields (add more as needed)
+		const requiredFields = [
+			'firstName',
+			'lastName',
+			'dob',
+			'sex',
+			'civilStatus',
+			'placeOfBirth',
+			'occupation',
+			'address',
+			'contactNumber',
+		];
+	
+		requiredFields.forEach((field) => {
+			if (!formValues[field]) {
+				errorMessages.push(`${field.charAt(0).toUpperCase() + field.slice(1)} is required.`);
+			}
+		});
+	
+		// Validate Guardian Fields (if guardian details are required, add validation)
+		if (formValues.guardianFirstName && !namePattern.test(formValues.guardianFirstName)) {
+			errorMessages.push("Guardian's First Name must only contain letters.");
+		}
+		if (formValues.guardianMiddleName && !namePattern.test(formValues.guardianMiddleName)) {
+			errorMessages.push("Guardian's Middle Name must only contain letters.");
+		}
+		if (formValues.guardianLastName && !namePattern.test(formValues.guardianLastName)) {
+			errorMessages.push("Guardian's Last Name must only contain letters.");
+		}
+	
+		// Validate Guardian Email (if provided)
+		const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+		if (formValues.guardianEmail && !emailPattern.test(formValues.guardianEmail)) {
+			errorMessages.push("Guardian's email address is invalid.");
+		}
+	
+		// Validate Guardian Contact Number (if provided, follow the same format)
+		if (formValues.guardianContact && !contactPattern.test(formValues.guardianContact)) {
+			errorMessages.push("Guardian's Contact Number must follow the format: 09123456789.");
+		}
+	
+		return errorMessages;
+	};
+	
 
 	const generatePDF = () => {
 		const doc = new jsPDF();
@@ -270,11 +347,16 @@ const Modal = ({ onClose }) => {
 		setFormValues({ ...formValues, [name]: value });
 	};
 
+    const handleCloseErrorModal = () => setIsErrorModalOpen(false)
+
+
 	return (
 		<>
 			<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
 				<div className="bg-white p-8 rounded-lg shadow-lg w-[40%] h-[90%] overflow-y-auto">
 					<h2 className="text-2xl font-semibold text-gray-800 mb-6">Register to OSCA</h2>
+					{isErrorModalOpen && <ErrorModal errors={errors} onClose={handleCloseErrorModal} />}
+			
 					<form>
 						<Form
 							formValues={formValues}
