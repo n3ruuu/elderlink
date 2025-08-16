@@ -15,11 +15,14 @@ const Forms = () => {
 	const fetchForms = async () => {
 		try {
 			const response = await axios.get('http://localhost:5000/forms')
-			setFormsData(response.data)
+			// Filter to only include forms with status "Active"
+			const activeForms = response.data.filter((form) => form.status === 'Active')
+			setFormsData(activeForms)
 		} catch (error) {
 			console.error('Error fetching data:', error)
 		}
 	}
+
 	// Fetch data from the server
 	useEffect(() => {
 		fetchForms()
@@ -38,21 +41,28 @@ const Forms = () => {
 		<section id="forms" className="forms-section">
 			<h1 className="forms-heading">Form Library</h1>
 
-			{/* Dynamically render categories and forms */}
-			{Object.entries(groupedForms).map(([category, forms]) => (
-				<div key={category} className="mb-12">
-					<h3 className="category-heading">{category}</h3>
-					<ul className="form-list">
-						{forms.map((form) => (
-							<li key={form.id} className="form-item">
-								<a href={`http://localhost:5000/${form.pdfLink}`} target="_blank" rel="noopener noreferrer">
-									{form.title}
-								</a>
-							</li>
-						))}
-					</ul>
-				</div>
-			))}
+			{formsData.length === 0 ? (
+				<p className="placeholder-message">No active forms available at the moment.</p>
+			) : (
+				Object.entries(groupedForms).map(([category, forms]) => (
+					<div key={category} className="mb-12">
+						<h3 className="category-heading">{category}</h3>
+						<ul className="form-list">
+							{forms.map((form) => (
+								<li key={form.id} className="form-item">
+									<a
+										href={`http://localhost:5000/${form.pdfLink}`}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{form.title}
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			)}
 
 			{/* Modal Component */}
 			{isModalOpen && <Modal closeModal={closeModal} formsData={formsData} />}

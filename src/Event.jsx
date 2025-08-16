@@ -6,7 +6,7 @@ import './css/calendar.css'
 import './css/Event.css'
 
 const Events = () => {
-	const [eventsData, setEventsData] = useState([])
+	const [events, setEvents] = useState([])
 	const [currentPage, setCurrentPage] = useState(1) // Track the current page
 	const eventsPerPage = 5 // Limit events per page
 	const eventsContainerRef = useRef(null)
@@ -15,22 +15,28 @@ const Events = () => {
 		fetchEvents()
 	}, [])
 
-	const fetchEvents = async () => {
-		try {
-			const response = await axios.get('http://localhost:5000/events')
-			const sortedEvents = response.data
-				.filter((event) => moment(event.date).isAfter(moment())) // Filter events that are in the future
-				.map((event) => ({
-					...event,
-					occurrences: getEventOccurrences(event), // Add recurrence handling
-				}))
-				.flatMap((event) => event.occurrences) // Flatten recurrence events
-				.sort((a, b) => moment(a.date).diff(moment(b.date))) // Sort by date ascending
-			setEventsData(sortedEvents)
-		} catch (error) {
-			console.error('Error fetching events:', error)
-		}
-	}
+	 const fetchEvents = async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/events") // Your API endpoint
+
+    const today = moment().startOf('day')
+
+    const formattedEvents = response.data
+      .filter(event => event.status === "Active")
+      .map(event => ({
+        ...event,
+        occurrences: getEventOccurrences(event),
+      }))
+      .flatMap(event => event.occurrences)
+      .filter(event => moment(event.date).isSameOrAfter(today)) // Keep today and future only
+      .sort((a, b) => moment(a.date).diff(moment(b.date)))
+
+    setEvents(formattedEvents)
+  } catch (error) {
+    console.error("Error fetching events:", error)
+  }
+}
+
 
 	const getEventOccurrences = (event) => {
 		const occurrences = []
@@ -111,19 +117,24 @@ const Events = () => {
 		return { month, day }
 	}
 
-	const categoryColors = {
-		'Health & Wellness': 'bg-teal-400',
-		'Social Gathering': 'bg-blue-400',
-		'Workshops & Classes': 'bg-green-400',
-		Fitness: 'bg-red-400',
-		'Nutritional Support': 'bg-yellow-400',
-		'Community Outreach': 'bg-purple-400',
-		'Assistance Programs': 'bg-orange-400',
-	}
+	const categoryColorsHex = {
+  'Health & Wellness': '#2E8B57',      
+  'Social Gathering': '#FF6F61',       
+  'Workshops & Classes': '#FFA500',    
+  'Fitness': '#1E90FF',                 
+  'Nutritional Support': '#B8860B',   
+  'Community Outreach': '#6A5ACD',     
+  'Assistance Programs': '#8B0000',    
+}
+
+const getCategoryColor = (category) => {
+  return categoryColorsHex[category] || '#ccc' // fallback gray if category not found
+}
+
 
 	// Handle page change
 	const handleNext = () => {
-		if (currentPage < Math.ceil(eventsData.length / eventsPerPage)) {
+		if (currentPage < Math.ceil(events.length / eventsPerPage)) {
 			setCurrentPage(currentPage + 1)
 		}
 	}
@@ -135,10 +146,10 @@ const Events = () => {
 	}
 
 	// Get events for the current page
-	const currentEvents = eventsData.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
+	const currentEvents = events.slice((currentPage - 1) * eventsPerPage, currentPage * eventsPerPage)
 
 	// Check if more events exist to activate the "Next" button
-	const hasNext = currentPage < Math.ceil(eventsData.length / eventsPerPage)
+	const hasNext = currentPage < Math.ceil(events.length / eventsPerPage)
 
 	return (
 		<section id="event" className="events-section">
@@ -164,18 +175,31 @@ const Events = () => {
 							currentEvents.map((event, index) => {
 								const formattedDate = formatDate(event.date)
 								const { month, day } = splitDate(formattedDate)
-								const categoryClass = categoryColors[event.category] || 'bg-gray-500'
+								const categoryClass = categoryColorsHex[event.category] || 'bg-gray-500'
 
 								return (
-									<div key={index} className={`event-item ${categoryClass}`}>
-										<p className="event-date">
-											<span className="event-month mt-2">{month}</span>
-											<span className="event-day">{day}</span>
-											<span className="event-title-landing">{event.title}</span>
-										</p>
-										<p className="event-recurrence text-white">{event.recurrence} Event</p>
-									</div>
-								)
+  <div
+    key={index}
+    className="event-item bg-white flex items-center justify-between px-4 py-3 rounded shadow mb-3"
+  >
+    <div>
+      <p className="event-date flex items-center gap-2">
+        <span className="event-month mt-2 font-semibold text-gray-700">{month}</span>
+        <span className="event-day font-bold text-gray-900">{day}</span>
+        <span className="event-title-landing text-gray-900 ml-4">{event.title}</span>
+      </p>
+      <p className="event-recurrence text-gray-500">{event.recurrence} Event</p>
+    </div>
+
+    {/* Colored circle */}
+    <span
+      className="rounded-full w-4 h-4"
+      style={{ backgroundColor: getCategoryColor(event.category) }}
+      title={event.category}
+    />
+  </div>
+)
+
 							})
 						) : (
 							<p className="event-item-paragraph">No upcoming events...</p>

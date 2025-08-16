@@ -6,6 +6,13 @@
     max-width: 750px;
 }
 
+.fc .fc-daygrid-event {
+  color: white !important; /* Make text white for contrast */
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+}
+
 .calendar-wrapper {
     max-width: 750px;
     height: 600px;
@@ -52,6 +59,11 @@
     border: none;
 }
 
+.fc-event-main {
+	border-radius: 10px;
+	padding: 4px 8px;
+}
+
 .fc-daygrid-day-number {
     color: #333333;
     text-align: center; /* Center the text */
@@ -61,7 +73,6 @@
 }
 
 .event-title {
-    background-color: #219ebc;
     color: white; /* Ensure the text is readable */
     padding: 4px 8px; /* Optional: Add some padding for better visual separation */
     border-radius: 4px; /* Optional: Give the event title rounded corners */
@@ -71,6 +82,11 @@
     overflow: visible; /* Make sure the text doesn't get clipped */
     word-wrap: break-word; /* Break words if they are too long */
     max-width: none; /* Remove any width limitation */
+}
+
+.fc-daygrid-event { 
+	border: none;
+	border-radius: 12px;
 }
 
 /* Hide scrollbar */
@@ -118,6 +134,7 @@
 		justify-content: center;
 		gap: 5px;
 	}
+
 
 	.fc-h-event .fc-event-title-container{
 		width: 1rem;
