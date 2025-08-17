@@ -27,48 +27,58 @@ const Contact = () => {
 
 	return (
 		<section id="contact" className="contact-section">
-			{/* Background Image Overlay */}
-			<div className="contact-background-image-overlay"></div>
-			{/* Color Overlay */}
-			<div className="contact-color-overlay"></div>
+			{/* Overlay */}
+			<div className="contact-overlay"></div>
 
-			{/* Content */}
-			<div className="contact-content">
-				<h1 className="contact-heading">Contact Us</h1>
-				<h2 className="contact-email">elderlinkinfo2025@gmail.com</h2>
-			</div>
-
-			{/* Officers and Area Coordinators Section */}
-			<div className="officers-section">
-				<h2 className="officers-heading">Association of Senior Citizen</h2>
-				<h3 className="chapter-heading">Mojon Chapter Officers (2024-2026)</h3>
-				<div className="officers-list">
-					{loading ? (
-						<p>Loading officers...</p>
-					) : officers.length > 0 ? (
-						officers.map((officer) => (
-							<p key={officer.id}>
-								<strong>{officer.position}:</strong> {officer.name}
-							</p>
-						))
-					) : (
-						<p>No officers found.</p>
-					)}
+			{/* Main Content */}
+			<div className="contact-container">
+				<div className="contact-header">
+					<h1>Contact Us</h1>
+					<p className="contact-email">📧 elderlinkinfo2025@gmail.com</p>
 				</div>
 
-				<h3 className="coordinators-heading">Area Coordinators</h3>
-				<div className="coordinators-list">
-					{loading ? (
-						<p>Loading coordinators...</p>
-					) : coordinators.length > 0 ? (
-						coordinators.map((coordinator) => (
-							<p key={coordinator.id}>
-								<strong>{coordinator.area}:</strong> {coordinator.name}
-							</p>
-						))
-					) : (
-						<p>No coordinators found.</p>
-					)}
+				{/* Officers Section */}
+				<div className="team-section">
+					<h2>Mojon Chapter Officers (2024-2026)</h2>
+					<div className="team-cards">
+						{loading ? (
+							<p>Loading officers...</p>
+						) : officers.length > 0 ? (
+							officers.map((officer) => (
+								<div key={officer.id} className="team-card">
+									<div className="team-avatar">{officer.name.charAt(0)}</div>
+									<div className="team-info">
+										<h3>{officer.name}</h3>
+										<p>{officer.position}</p>
+									</div>
+								</div>
+							))
+						) : (
+							<p>No officers found.</p>
+						)}
+					</div>
+				</div>
+
+				{/* Area Coordinators Section */}
+				<div className="team-section">
+					<h2>Area Coordinators</h2>
+					<div className="team-cards">
+						{loading ? (
+							<p>Loading coordinators...</p>
+						) : coordinators.length > 0 ? (
+							coordinators.map((coordinator) => (
+								<div key={coordinator.id} className="team-card">
+									<div className="team-avatar">{coordinator.name.charAt(0)}</div>
+									<div className="team-info">
+										<h3>{coordinator.name}</h3>
+										<p>{coordinator.area}</p>
+									</div>
+								</div>
+							))
+						) : (
+							<p>No coordinators found.</p>
+						)}
+					</div>
 				</div>
 			</div>
 		</section>
