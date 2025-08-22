@@ -27,7 +27,7 @@ const Calendar = () => {
 
 	const fetchEvents = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/events')
+			const response = await axios.get('http://5.181.217.153:5000/events')
 			const formattedEvents = response.data
 				.filter((event) => event.status === 'Active')
 				.map((event) => ({
@@ -135,7 +135,6 @@ const Calendar = () => {
 						setSelectedEvent(info.event.extendedProps)
 					}}
 					eventColor="#219EBC"
-					eventDisplay="block"
 					eventContent={renderEventContent}
 				/>
 			</div>

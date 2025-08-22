@@ -5,11 +5,12 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 1rem;
+  font-family: 'Inter', sans-serif;
 }
 
 .news-heading {
   color: #219EBC;
-  text-align: left;
+  text-align: center;
   font-weight: 700;
   font-size: 3.75rem;
 }
@@ -101,11 +102,12 @@
 
 /* Mobile View - Small */
 @media only screen and (max-width: 374px) {
-  .news-section{
+  .news-section {
     padding: 30px 25px;
   }
 
-  .news-heading{
+  .news-heading {
+    text-align: left;
     font-weight: 850;
     font-size: 35px;
   }
@@ -115,9 +117,9 @@
     padding-bottom: 20px;
     display: flex;
     position: relative;
-  }  
+  }
 
-  .news-slider{
+  .news-slider {
     display: flex;
     flex-direction: column;
     transform: translateX(0%);
@@ -130,38 +132,38 @@
     cursor: pointer;
     border-radius: 20px;
     flex-shrink: 0;
-    height: auto; 
+    height: auto;
     min-height: 100px;
-    flex-grow: 1; 
+    flex-grow: 1;
     width: 100%;
   }
 
-  .nav-button{
+  .nav-button {
     display: none;
   }
 
-  .slide-content{
+  .slide-content {
     border-radius: 20px;
     padding: 15px 20px;
-    height: auto; 
+    height: auto;
     min-height: 100px;
   }
 
-  .slide-date{
+  .slide-date {
     font-size: 12px;
     font-weight: 100;
     letter-spacing: 1px;
     padding-top: 20px;
   }
 
-  .slide-heading{
+  .slide-heading {
     margin-top: 5px;
     font-size: 18px;
     line-height: 1.2;
     letter-spacing: 1px;
   }
 
-  .slide-author{
+  .slide-author {
     margin: 10px 0 5px;
     font-size: 12px;
     letter-spacing: 1px;
@@ -170,18 +172,19 @@
 
   .slide-date,
   .slide-author,
-  .slide-heading{
+  .slide-heading {
     padding-left: 0px;
   }
 }
 
 /* Mobile View - Medium */
-@media (min-width: 375px) and (max-width: 424px){
-  .news-section{
+@media (min-width: 375px) and (max-width: 424px) {
+  .news-section {
     padding: 30px 25px;
   }
 
-  .news-heading{
+  .news-heading {
+    text-align: left;
     font-weight: 850;
     font-size: 40px;
   }
@@ -191,9 +194,9 @@
     padding-bottom: 20px;
     display: flex;
     position: relative;
-  }  
+  }
 
-  .news-slider{
+  .news-slider {
     display: flex;
     flex-direction: column;
     transform: translateX(0%);
@@ -206,23 +209,23 @@
     cursor: pointer;
     border-radius: 20px;
     flex-shrink: 0;
-    height: auto; 
+    height: auto;
     min-height: 100px;
-    flex-grow: 1; 
+    flex-grow: 1;
     width: 100%;
   }
 
-  .nav-button{
+  .nav-button {
     display: none;
   }
 
-  .slide-content{
+  .slide-content {
     border-radius: 20px;
     padding: 15px 20px;
     min-height: 150px;
   }
 
-  .slide-date{
+  .slide-date {
     font-size: 11px;
     font-weight: 100;
     letter-spacing: 1px;
@@ -230,14 +233,14 @@
     text-transform: uppercase;
   }
 
-  .slide-heading{
+  .slide-heading {
     margin-top: 5px;
     font-size: 21px;
     line-height: 1.2;
     letter-spacing: 0.5px;
   }
 
-  .slide-author{
+  .slide-author {
     margin: 5px 0 5px 0;
     font-size: 12px;
     letter-spacing: 1px;
@@ -246,18 +249,19 @@
 
   .slide-date,
   .slide-author,
-  .slide-heading{
+  .slide-heading {
     padding-left: 0px;
   }
 }
 
 /* Mobile View - Large */
 @media (min-width: 425px) and (max-width: 767px) {
-  .news-section{
+  .news-section {
     padding: 30px 25px;
   }
 
-  .news-heading{
+  .news-heading {
+    text-align: left;
     font-weight: 850;
     font-size: 45px;
   }
@@ -267,9 +271,9 @@
     padding-bottom: 20px;
     display: flex;
     position: relative;
-  }  
+  }
 
-  .news-slider{
+  .news-slider {
     display: flex;
     flex-direction: column;
     transform: translateX(0%);
@@ -282,23 +286,23 @@
     cursor: pointer;
     border-radius: 20px;
     flex-shrink: 0;
-    height: auto; 
+    height: auto;
     min-height: 100px;
-    flex-grow: 1; 
+    flex-grow: 1;
     width: 100%;
   }
 
-  .nav-button{
+  .nav-button {
     display: none;
   }
 
-  .slide-content{
+  .slide-content {
     border-radius: 20px;
     padding: 15px 20px;
     min-height: 150px;
   }
 
-  .slide-date{
+  .slide-date {
     font-size: 13px;
     font-weight: 100;
     letter-spacing: 1px;
@@ -306,14 +310,14 @@
     text-transform: uppercase;
   }
 
-  .slide-heading{
+  .slide-heading {
     margin-top: 5px;
     font-size: 23px;
     line-height: 1.2;
     letter-spacing: 0.5px;
   }
 
-  .slide-author{
+  .slide-author {
     margin: 5px 0 5px 0;
     font-size: 14px;
     letter-spacing: 1px;
@@ -322,7 +326,7 @@
 
   .slide-date,
   .slide-author,
-  .slide-heading{
+  .slide-heading {
     padding-left: 0px;
   }
 }

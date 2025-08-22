@@ -57,7 +57,7 @@ const RegisterModal = ({ formValues, onClose }) => {
 		if (files.requirement3) formData.append('requirements', files.requirement3)
 
 		try {
-			const response = await fetch('http://localhost:5000/members/register', {
+			const response = await fetch('http://5.181.217.153:5000/members/register', {
 				method: 'POST',
 				body: formData,
 			})

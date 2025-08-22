@@ -14,7 +14,7 @@ const Forms = () => {
 
 	const fetchForms = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/forms')
+			const response = await axios.get('http://5.181.217.153:5000/forms')
 			// Filter to only include forms with status "Active"
 			const activeForms = response.data.filter((form) => form.status === 'Active')
 			setFormsData(activeForms)
@@ -50,11 +50,7 @@ const Forms = () => {
 						<ul className="form-list">
 							{forms.map((form) => (
 								<li key={form.id} className="form-item">
-									<a
-										href={`http://localhost:5000/${form.pdfLink}`}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
+									<a href={`http://5.181.217.153:5000/${form.pdfLink}`} target="_blank" rel="noopener noreferrer">
 										{form.title}
 									</a>
 								</li>

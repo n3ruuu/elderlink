@@ -11,7 +11,7 @@ const Contact = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const [officerResponse, coordinatorResponse] = await Promise.all([axios.get('http://localhost:5000/cms/officers'), axios.get('http://localhost:5000/cms/area-coordinators')])
+				const [officerResponse, coordinatorResponse] = await Promise.all([axios.get('http://5.181.217.153:5000/cms/officers'), axios.get('http://5.181.217.153:5000/cms/area-coordinators')])
 
 				setOfficers(officerResponse.data)
 				setCoordinators(coordinatorResponse.data)

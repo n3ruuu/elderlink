@@ -10,7 +10,7 @@
 }
 
 .forms-heading {
-  font-size: 3rem;
+  font-size: 3.75rem;
   padding-bottom: 1rem;
   font-weight: bold;
   color: #219EBC;
@@ -88,14 +88,14 @@
   background-color: #1A7F8C;
 }
 
-@media only screen and (max-width: 767px) {
+@media (min-width: 320px) and (max-width: 374px) {
   .forms-section {
-    margin: 20px;
-    padding: 1rem;
+    padding: 2rem;
+    margin: 0;
   }
 
   .forms-heading {
-    font-size: 1.8rem;
+    font-size: 35px;
     border-bottom-width: 2px;
   }
 
@@ -109,5 +109,47 @@
 
   .form-item {
     padding: 0.6rem 0.8rem;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 424px) {
+  .forms-section {
+    position: relative;
+    top: 500px;
+  }
+
+  .forms-heading {
+    font-size: 35px;
+    border-bottom-width: 2px;
+  }
+
+  .category-heading {
+    font-size: 1.2rem;
+  }
+
+  .form-list {
+    font-size: 14px;
+  }
+
+  .form-item {
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+  .forms-section {
+    margin: 0;
+  }
+
+  .forms-heading {
+    font-size: 45px;
+  }
+
+  .form-item a {
+    font-size: 18px;
+  }
+
+  .category-heading {
+    font-size: 23px;
   }
 }

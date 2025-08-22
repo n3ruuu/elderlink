@@ -1,22 +1,15 @@
-.contact-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.6); /* dark overlay for readability */
-	z-index: 1;
-}
+
 
 .contact-section {
 	position: relative;
-	padding: 80px 20px;
+	margin-top: 200px;
+	padding-bottom: 50px;
 	background-size: cover;
 	background-position: center;
 	background-image: url('src/assets/contact-bg.png');
 	color: #fff;
 	min-height: 100vh;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Inter', sans-serif;
 }
 
 .contact-overlay {
@@ -25,7 +18,8 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(33, 158, 188, 0.5); /* Light blue overlay */
+	background: rgba(33, 158, 188, 0.8);
+	/* Light blue overlay */
 	z-index: 1;
 }
 
@@ -38,17 +32,16 @@
 }
 
 .contact-header h1 {
-	font-size: 3rem;
+	font-size: 3.75rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
-	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .contact-email {
 	font-size: 1.2rem;
-	color: #ffd700;
-	margin-bottom: 2rem;
-	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	font-weight: 500;
+	color: #f5f5fa;
+	font-style: italic;
 }
 
 .team-section {
@@ -57,11 +50,10 @@
 
 .team-section h2 {
 	font-size: 2rem;
+	font-weight: bold;
 	margin-bottom: 20px;
-	border-bottom: 2px solid #219ebc;
 	display: inline-block;
 	padding-bottom: 5px;
-	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .team-cards {
@@ -72,7 +64,8 @@
 }
 
 .team-card {
-	background: rgba(255, 255, 255, 0.15); /* semi-transparent for frosted-glass effect */
+	background: rgba(255, 255, 255, 0.15);
+	/* semi-transparent for frosted-glass effect */
 	backdrop-filter: blur(10px);
 	border-radius: 12px;
 	padding: 20px;
@@ -106,19 +99,104 @@
 .team-info h3 {
 	margin: 0;
 	font-size: 1.1rem;
-	font-weight: bold;
+	font-weight: 500;
 }
 
 .team-info p {
 	margin: 2px 0 0 0;
 	font-size: 0.95rem;
-	color: #ffd700;
+	color: #023047;
+	font-style: italic;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+@media (min-width: 320px) and (max-width: 374px) {
+	.team-card {
+		width: 280px;
+	}
+
+	.contact-header h1 {
+		font-size: 35px;
+	}
+
+	.contact-email {
+		font-size: 14px;
+	}
+
+	.team-section h2 {
+		font-size: 20px;
+	}
+
+	.team-avatar {
+		font-size: 1rem;
+	}
+
+	.team-info h3 {
+		font-size: 16px;
+	}
+
+	.team-info p {
+		font-size: 14px;
+	}
+
+}
+
+@media (min-width: 375px) and (max-width: 424px) {
+	.team-card {
+		width: 330px;
+	}
+
+	.contact-header h1 {
+		font-size: 40px;
+	}
+
+	.contact-email {
+		font-size: 17px;
+	}
+
+	.team-section h2 {
+		font-size: 23px;
+	}
+
+	.team-avatar {
+		font-size: 1.2rem;
+	}
+
+	.team-info h3 {
+		font-size: 18px;
+	}
+
+	.team-info p {
+		font-size: 16px;
+	}
+	.contact-container {
+		margin-top: 500px;
+	}
+
+}
+
+@media (min-width: 425px) and (max-width: 768px) {
 	.team-cards {
 		flex-direction: column;
 		align-items: center;
+	}
+
+	.contact-header h1 {
+		font-size: 45px;
+	}
+
+	.team-info h3 {
+		font-size: 1.3rem;
+	}
+
+	.team-info p {
+		font-size: 18px;
+	}
+
+	.team-section h2 {
+		font-size: 30px;
+	}
+
+	.team-card {
+		width: 380px;
 	}
 }

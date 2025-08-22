@@ -17,7 +17,7 @@ const Events = () => {
 
 	const fetchEvents = async () => {
 		try {
-			const response = await axios.get('http://localhost:5000/events') // Your API endpoint
+			const response = await axios.get('http://5.181.217.153:5000/events') // Your API endpoint
 
 			const today = moment().startOf('day')
 
