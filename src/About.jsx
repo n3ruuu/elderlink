@@ -1,6 +1,6 @@
-import Image1 from './assets/img-1.png'
-import Image2 from './assets/img-2.png'
-import Image3 from './assets/img-3.png'
+import Image1 from '/img-1.png'
+import Image2 from '/img-2.png'
+import Image3 from '/img-3.png'
 import './css/About.css'
 
 const About = () => {

@@ -1,12 +1,10 @@
-
-
 .contact-section {
 	position: relative;
 	margin-top: 200px;
 	padding-bottom: 50px;
 	background-size: cover;
 	background-position: center;
-	background-image: url('src/assets/contact-bg.png');
+	background-image: url('/contact-bg.png');
 	color: #fff;
 	min-height: 100vh;
 	font-family: 'Inter', sans-serif;
@@ -137,7 +135,6 @@
 	.team-info p {
 		font-size: 14px;
 	}
-
 }
 
 @media (min-width: 375px) and (max-width: 424px) {
@@ -171,7 +168,6 @@
 	.contact-container {
 		margin-top: 500px;
 	}
-
 }
 
 @media (min-width: 425px) and (max-width: 768px) {

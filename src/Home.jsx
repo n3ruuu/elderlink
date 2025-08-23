@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, Element } from 'react-scroll'
-import ElderlinkLogo from './assets/elderlink-logo.png'
+import ElderlinkLogo from '/elderlink-logo.png'
 import './css/Home.css'
 import { RxHamburgerMenu } from 'react-icons/rx'
 import { IoCloseSharp } from 'react-icons/io5'

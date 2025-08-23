@@ -13,7 +13,7 @@
 	width: 1000px;
 	height: auto;
 	min-height: 700px;
-	background-image: url('src/assets/events-bg.png');
+	background-image: url('/events-bg.png');
 }
 
 .events-bg {
@@ -243,10 +243,7 @@
 		display: block;
 		padding: 10px;
 	}
-
-
 }
-
 
 /* Mobile view - Medium */
 @media (min-width: 375px) and (max-width: 424px) {
